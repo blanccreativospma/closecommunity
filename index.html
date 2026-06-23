@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>CLOSE COMMUNITY</title>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Abril+Fatface&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <style>
 
     /* ═══════════════════════════════════════
@@ -72,85 +73,145 @@
     ═══════════════════════════════════════ */
     .lobby {
       position: fixed; inset: 0; z-index: 9000;
-      background: var(--black);
+      background: #0f0f0f;
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
-      padding: 24px;
+      gap: 52px;
       transition: opacity .9s cubic-bezier(.4,0,.2,1);
     }
-    .lobby.exit {
-      opacity: 0;
-      pointer-events: none;
-    }
+    .lobby.exit { opacity: 0; pointer-events: none; }
 
-    /* Raf-style: brand label top, card center, location bottom */
-    .lobby-brand {
-      position: absolute; top: 28px; left: 50%; transform: translateX(-50%);
-      font-family: var(--mono); font-size: 9px; font-weight: 700;
-      letter-spacing: .32em; text-transform: uppercase; color: var(--white);
-      white-space: nowrap;
+    .lobby-logo {
+      width: min(520px, 78vw);
+      display: block;
+      animation: logoIn 1s cubic-bezier(.25,.46,.45,.94) both;
+      animation-delay: .1s;
     }
-    .lobby-location {
-      position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
-      font-family: var(--mono); font-size: 8px;
-      letter-spacing: .22em; text-transform: uppercase; color: var(--dim);
-      white-space: nowrap;
-    }
-
-    /* The card */
-    .lobby-card {
-      width: min(520px, 92vw);
-      border: 1px solid #e0e0e0;
-      padding: 52px 48px 44px;
-      display: flex; flex-direction: column;
-      gap: 0;
-      position: relative;
-      background: #fafafa;
-      animation: cardIn .9s cubic-bezier(.25,.46,.45,.94) both;
-      animation-delay: .15s;
-    }
-
-    @keyframes cardIn {
-      from { opacity: 0; transform: translateY(16px); }
+    @keyframes logoIn {
+      from { opacity: 0; transform: translateY(12px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    .lobby-season {
+    .lobby-actions {
+      display: flex; gap: 16px;
+      animation: logoIn .9s cubic-bezier(.25,.46,.45,.94) both;
+      animation-delay: .35s;
+    }
+    .lobby-btn {
+      font-family: var(--mono); font-size: 9px; font-weight: 700;
+      letter-spacing: .32em; text-transform: uppercase;
+      padding: 14px 36px;
+      border: 1px solid rgba(255,255,255,.28);
+      background: transparent; color: #fff;
+      cursor: none;
+      transition: background .2s, border-color .2s, color .2s;
+    }
+    .lobby-btn:hover { background: #fff; color: #111; border-color: #fff; }
+    .lb-buy { background: #fff; color: #111; border-color: #fff; }
+    .lb-buy:hover { background: rgba(255,255,255,.82); color: #111; }
+
+    .lobby-location {
+      position: absolute; bottom: 28px;
       font-family: var(--mono); font-size: 8px;
-      letter-spacing: .25em; text-transform: uppercase; color: var(--dim);
-      margin-bottom: 28px;
+      letter-spacing: .22em; text-transform: uppercase; color: #555;
+      white-space: nowrap;
     }
-    .lobby-rule {
-      width: 100%; height: 1px; background: #1a1a1a; margin-bottom: 36px;
+
+    /* ── JOIN / EMAIL MODAL ── */
+    .join-ov {
+      position: fixed; inset: 0; z-index: 9100;
+      background: rgba(0,0,0,.72);
+      backdrop-filter: blur(8px);
+      opacity: 0; pointer-events: none;
+      transition: opacity .35s ease;
     }
-    .lobby-manifesto {
-      font-size: clamp(32px, 6vw, 52px);
-      font-weight: 700; letter-spacing: -.02em;
-      text-transform: uppercase; line-height: .92;
-      margin-bottom: 44px;
+    .join-ov.open { opacity: 1; pointer-events: all; }
+
+    .join-modal {
+      position: fixed; inset: 0; z-index: 9200;
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px;
+      pointer-events: none;
     }
-    .lobby-enter {
-      display: inline-flex; align-items: center;
+    .join-modal.open { pointer-events: all; }
+
+    .join-box {
+      background: #0f0f0f;
+      border: 1px solid #222;
+      padding: 52px 48px 44px;
+      width: min(480px, 94vw);
+      display: flex; flex-direction: column; gap: 0;
+      transform: translateY(20px); opacity: 0;
+      transition: transform .38s cubic-bezier(.25,.46,.45,.94), opacity .38s ease;
+      position: relative;
+    }
+    .join-modal.open .join-box { transform: translateY(0); opacity: 1; }
+
+    .join-close {
+      position: absolute; top: 20px; right: 22px;
+      background: none; border: none; color: #555;
+      font-family: var(--mono); font-size: 14px; cursor: none;
+      transition: color .2s;
+    }
+    .join-close:hover { color: #fff; }
+
+    .join-title {
+      font-family: 'Abril Fatface', serif;
+      font-size: clamp(26px, 4.5vw, 40px);
+      line-height: 1.05; color: #fff;
+      margin-bottom: 16px;
+    }
+    .join-sub {
+      font-family: var(--mono); font-size: 8px;
+      letter-spacing: .2em; text-transform: uppercase;
+      color: #666; margin-bottom: 36px; line-height: 2;
+    }
+    .join-form { display: flex; flex-direction: column; gap: 10px; }
+    .join-input {
+      width: 100%; padding: 13px 16px;
+      background: #1a1a1a; border: 1px solid #333; color: #fff;
+      font-family: var(--mono); font-size: 11px; letter-spacing: .06em;
+      outline: none;
+      transition: border-color .2s;
+    }
+    .join-input:focus { border-color: #666; }
+    .join-input::placeholder { color: #444; }
+    .join-submit {
+      width: 100%; padding: 14px;
+      background: #fff; color: #111; border: none;
       font-family: var(--mono); font-size: 9px; font-weight: 700;
       letter-spacing: .3em; text-transform: uppercase;
-      color: var(--black); background: var(--white);
-      border: none; padding: 13px 28px;
-      cursor: none; align-self: flex-start;
-      transition: background .2s, color .2s;
+      cursor: none;
+      transition: background .2s;
     }
-    .lobby-enter:hover { background: var(--dim); color: var(--white); }
-    .lobby-enter-arrow {
-      margin-left: 14px; font-size: 11px;
-      transition: transform .2s;
-    }
-    .lobby-enter:hover .lobby-enter-arrow { transform: translateX(4px); }
+    .join-submit:hover { background: #ddd; }
+    .join-submit:disabled { background: #333; color: #666; }
 
-    .lobby-card-meta {
-      margin-top: 28px;
-      font-family: var(--mono); font-size: 8px;
-      letter-spacing: .15em; color: var(--muted);
-      line-height: 1.8;
+    .join-done {
+      display: none;
+      font-family: 'Abril Fatface', serif;
+      font-size: clamp(20px, 3.5vw, 30px);
+      color: #fff; margin-top: 8px; line-height: 1.2;
     }
+    .join-done.show { display: block; }
+    .join-form.hide { display: none; }
+
+    .join-legal {
+      margin-top: 20px;
+      font-family: var(--mono); font-size: 7px;
+      letter-spacing: .16em; text-transform: uppercase;
+      color: #444; line-height: 2;
+    }
+
+    /* ── SIZE SHAKE ── */
+    @keyframes szShake {
+      0%,100% { transform: translateX(0); }
+      20%      { transform: translateX(-5px); }
+      40%      { transform: translateX(5px); }
+      60%      { transform: translateX(-3px); }
+      80%      { transform: translateX(3px); }
+    }
+    .szs.shake { animation: szShake .32s ease; }
 
     /* ═══════════════════════════════════════
        TICKER
@@ -637,8 +698,8 @@
       .sm, .arc, footer { padding-left: 20px; padding-right: 20px; }
       footer  { flex-direction: column; gap: 20px; align-items: flex-start; }
       .f-r    { text-align: left; }
-      .lobby-card { padding: 40px 28px 36px; }
-      .lobby-manifesto { font-size: clamp(28px, 9vw, 44px); }
+      .lobby-logo { width: min(340px, 82vw); }
+      .lobby-btn { padding: 12px 22px; letter-spacing: .2em; }
       .cd     { width: 100%; }
     }
 
@@ -658,21 +719,31 @@
      LOBBY — Raf Simons entrance
 ═══════════════════════════════════ -->
 <div class="lobby" id="lobby">
-  <span class="lobby-brand">Close Community</span>
-
-  <div class="lobby-card">
-    <div class="lobby-season">Capsule I &nbsp;—&nbsp; 2026</div>
-    <div class="lobby-rule"></div>
-    <h1 class="lobby-manifesto">U Will<br>Want to<br>Belong.</h1>
-    <button class="lobby-enter" id="lobbyEnter">
-      Enter <span class="lobby-enter-arrow">→</span>
-    </button>
-    <div class="lobby-card-meta">
-      Ciudad de Panamá &nbsp;·&nbsp; Underground &nbsp;·&nbsp; Limited
-    </div>
+  <img class="lobby-logo" src="logos%20CC/TYPO_LOGO.png" alt="Close Community"/>
+  <div class="lobby-actions">
+    <button class="lobby-btn lb-menu" id="lobbyMenu">Menu</button>
+    <button class="lobby-btn lb-buy"  id="lobbyBuy">Buy</button>
   </div>
+  <span class="lobby-location">Ciudad de Panamá &nbsp;·&nbsp; 2026</span>
+</div>
 
-  <span class="lobby-location">Panamá &nbsp;·&nbsp; 2026</span>
+<!-- ═══════════════════════════════════
+     JOIN / EMAIL CAPTURE MODAL
+═══════════════════════════════════ -->
+<div class="join-ov" id="joinOv"></div>
+<div class="join-modal" id="joinModal">
+  <div class="join-box">
+    <button class="join-close" id="joinClose">✕</button>
+    <div class="join-title">U Will Want<br>To Belong.</div>
+    <p class="join-sub">Drop your email.<br>We'll let you know when it drops.</p>
+    <form class="join-form" id="joinForm">
+      <input class="join-input" type="email" id="joinEmail"
+             placeholder="your@email.com" required autocomplete="email"/>
+      <button class="join-submit" type="submit" id="joinSubmit">Belong →</button>
+    </form>
+    <div class="join-done" id="joinDone">You're in.<br>Check your email.</div>
+    <p class="join-legal">No spam. Only drops, signals, and early access.</p>
+  </div>
 </div>
 
 <!-- TICKER -->
@@ -958,7 +1029,7 @@
   <div class="f-l">
     <span class="f-brand">Close Community</span>
     <div class="f-links">
-      <a href="#" class="f-link">Instagram</a>
+      <a href="https://instagram.com/CLOSE.CCO" target="_blank" rel="noopener" class="f-link">Instagram</a>
       <a href="#" class="f-link">TikTok</a>
     </div>
   </div>
@@ -992,19 +1063,93 @@ document.querySelectorAll('.gv').forEach(el=>{
 
 /* ── LOBBY ── */
 const lobby = document.getElementById('lobby');
-// Show lobby only once per session
-if (sessionStorage.getItem('cc_entered')) {
-  lobby.style.display = 'none';
-} else {
-  document.body.style.overflow = 'hidden';
-}
-document.getElementById('lobbyEnter').addEventListener('click', () => {
+function exitLobby(cb) {
   lobby.classList.add('exit');
   sessionStorage.setItem('cc_entered','1');
   setTimeout(() => {
     lobby.style.display = 'none';
     document.body.style.overflow = '';
+    if(cb) cb();
   }, 920);
+}
+if (sessionStorage.getItem('cc_entered')) {
+  lobby.style.display = 'none';
+} else {
+  document.body.style.overflow = 'hidden';
+}
+// Menu button: exit lobby → open hamburger menu
+document.getElementById('lobbyMenu').addEventListener('click', () => {
+  exitLobby(() => openMenu());
+});
+// Buy button: open email capture modal (stays on lobby)
+document.getElementById('lobbyBuy').addEventListener('click', () => {
+  openJoin();
+});
+
+/* ── JOIN MODAL ── */
+const joinOv    = document.getElementById('joinOv');
+const joinModal = document.getElementById('joinModal');
+const joinForm  = document.getElementById('joinForm');
+const joinDone  = document.getElementById('joinDone');
+
+function openJoin() {
+  joinOv.classList.add('open');
+  joinModal.classList.add('open');
+}
+function closeJoin() {
+  joinOv.classList.remove('open');
+  joinModal.classList.remove('open');
+}
+document.getElementById('joinClose').addEventListener('click', closeJoin);
+joinOv.addEventListener('click', closeJoin);
+
+joinForm.addEventListener('submit', async e => {
+  e.preventDefault();
+  const email   = document.getElementById('joinEmail').value.trim();
+  const btn     = document.getElementById('joinSubmit');
+  btn.disabled  = true;
+  btn.textContent = 'Sending…';
+
+  try {
+    /* ─────────────────────────────────────────────────────────
+       EMAILJS SETUP — fill in your credentials from emailjs.com
+       1. Create free account at emailjs.com
+       2. Add Gmail service → copy Service ID below
+       3. Create template with variables {{to_email}} {{to_name}}
+          (template should send a welcome email TO {{to_email}})
+       4. Copy Template ID and Public Key below
+    ───────────────────────────────────────────────────────── */
+    const SERVICE_ID  = 'YOUR_SERVICE_ID';
+    const TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
+    const PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';
+
+    await emailjs.send(SERVICE_ID, TEMPLATE_ID, {
+      to_email: email,
+      to_name:  email.split('@')[0],
+      from_name: 'Close Community',
+      reply_to:  'blanc.creativos@gmail.com',
+    }, PUBLIC_KEY);
+
+    joinForm.classList.add('hide');
+    joinDone.classList.add('show');
+    // After 3s close modal and exit lobby
+    setTimeout(() => {
+      closeJoin();
+      exitLobby();
+    }, 3000);
+
+  } catch(err) {
+    btn.disabled    = false;
+    btn.textContent = 'Belong →';
+    // If EmailJS not configured yet, still show success state
+    if (SERVICE_ID === 'YOUR_SERVICE_ID') {
+      joinForm.classList.add('hide');
+      joinDone.classList.add('show');
+      setTimeout(() => { closeJoin(); exitLobby(); }, 3000);
+    } else {
+      toast('Something went wrong. Try again.');
+    }
+  }
 });
 
 /* ── HAMBURGER MENU ── */
@@ -1078,7 +1223,15 @@ function renderCart() {
   document.getElementById('cdTotal').textContent='$'+total.toFixed(2)+' USD';
 }
 function addCart(btn,name,price,img){
-  const sz = btn.closest('.pc-info')?.querySelector('.sz.on')?.textContent||null;
+  const pc  = btn.closest('.pc-info');
+  const szEl = pc?.querySelector('.sz.on');
+  if(!szEl){
+    const szs = pc?.querySelector('.szs');
+    if(szs){ szs.classList.remove('shake'); void szs.offsetWidth; szs.classList.add('shake'); }
+    toast('Select a size first.');
+    return;
+  }
+  const sz = szEl.textContent;
   const ex = cart.find(i=>i.name===name&&i.size===sz);
   if(ex) ex.qty++; else cart.push({name,price,img,size:sz,qty:1});
   renderCart(); openCart(); toast('Added.');
