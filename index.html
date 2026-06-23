@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>CLOSE COMMUNITY</title>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Abril+Fatface&display=swap" rel="stylesheet"/>
   <style>
 
     /* ═══════════════════════════════════════
@@ -227,33 +227,37 @@
        MENU OVERLAY — full screen
     ═══════════════════════════════════════ */
     .menu-overlay {
-      position: fixed; inset: 0; z-index: 980;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      z-index: 980;
       background: var(--black);
-      display: flex; flex-direction: column;
-      justify-content: center;
-      padding: 80px 48px;
       opacity: 0; pointer-events: none;
       transition: opacity .4s cubic-bezier(.4,0,.2,1);
     }
     .menu-overlay.open { opacity: 1; pointer-events: all; }
 
+    /* Centre container */
     .menu-links {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
       display: flex; flex-direction: column;
-      gap: 4px;
+      align-items: center; gap: 2px;
     }
     .menu-link {
-      font-size: clamp(36px, 6vw, 72px);
-      font-weight: 700; letter-spacing: -.02em;
+      font-family: 'Abril Fatface', serif;
+      font-size: clamp(16px, 2vw, 26px);
+      font-weight: 400; letter-spacing: .06em;
       text-transform: uppercase; color: var(--white);
-      text-decoration: none; line-height: 1.05;
+      text-decoration: none; line-height: 1.6;
       display: inline-block;
-      transition: color .15s, transform .15s;
-      width: fit-content;
+      transition: color .15s, letter-spacing .2s;
     }
-    .menu-link:hover { color: var(--dim); transform: translateX(8px); }
+    .menu-link:hover { color: var(--dim); letter-spacing: .16em; }
 
     .menu-foot {
-      position: absolute; bottom: 40px; left: 48px; right: 48px;
+      position: absolute; bottom: 32px; left: 40px; right: 40px;
       display: flex; justify-content: space-between; align-items: flex-end;
     }
     .menu-foot-brand {
