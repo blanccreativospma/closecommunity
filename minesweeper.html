@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Play — Close Community</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Abril+Fatface&display=swap" rel="stylesheet"/>
+  <style>
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #ffffff;
+      --ink:     #111111;
+      --dim:     #888888;
+      --muted:   #cccccc;
+      --rule:    #e8e8e8;
+      --cell-un: #f2f2f0;
+      --cell-rv: #ffffff;
+      --mono:    'Space Mono', monospace;
+      --sans:    'Space Grotesk', Helvetica, sans-serif;
+      --abril:   'Abril Fatface', serif;
+    }
+
+    html, body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+      cursor: none;
+    }
+
+    /* ── CURSOR ── */
+    .c-dot {
+      position: fixed; top: 0; left: 0;
+      width: 5px; height: 5px;
+      background: var(--ink); border-radius: 50%;
+      pointer-events: none; z-index: 9999;
+      will-change: transform; mix-blend-mode: difference;
+    }
+    .c-ring {
+      position: fixed; top: 0; left: 0;
+      width: 32px; height: 32px;
+      border: 1px solid rgba(0,0,0,.22); border-radius: 50%;
+      pointer-events: none; z-index: 9998;
+      will-change: transform;
+      transition: width .18s, height .18s, border-color .18s;
+    }
+    .c-ring.hov { width: 48px; height: 48px; border-color: rgba(0,0,0,.45); }
+
+    /* ── TICKER ── */
+    .ticker {
+      position: fixed; top: 0; left: 0; width: 100%; height: 26px;
+      background: var(--ink); overflow: hidden; z-index: 100;
+      display: flex; align-items: center;
+    }
+    .ticker-t {
+      display: flex; white-space: nowrap;
+      animation: tick 28s linear infinite;
+    }
+    .ti {
+      font-family: var(--mono); font-size: 8px; font-weight: 700;
+      letter-spacing: .24em; text-transform: uppercase;
+      color: var(--bg); padding: 0 28px;
+    }
+    .ts { color: #555; font-family: var(--mono); font-size: 8px; }
+    @keyframes tick { to { transform: translateX(-50%); } }
+
+    /* ── NAV ── */
+    .top-bar {
+      position: fixed; top: 26px; left: 0; right: 0; height: 44px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 32px; z-index: 90;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--rule);
+    }
+    .tb-back {
+      font-family: var(--mono); font-size: 8px; letter-spacing: .2em;
+      text-transform: uppercase; color: var(--dim);
+      text-decoration: none; cursor: none;
+      transition: color .2s;
+    }
+    .tb-back:hover { color: var(--ink); }
+    .tb-title {
+      font-family: var(--mono); font-size: 9px; font-weight: 700;
+      letter-spacing: .28em; text-transform: uppercase;
+      position: absolute; left: 50%; transform: translateX(-50%);
+    }
+    .tb-right {
+      font-family: var(--mono); font-size: 8px; letter-spacing: .15em;
+      text-transform: uppercase; color: var(--dim);
+    }
+
+    /* ── PAGE ── */
+    .page {
+      padding-top: 90px;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center;
+    }
+
+    /* ── GAME HEADER ── */
+    .game-head {
+      width: 100%; max-width: 640px;
+      padding: 40px 24px 20px;
+      display: flex; flex-direction: column; align-items: center; gap: 24px;
+    }
+    .game-title {
+      font-family: var(--abril);
+      font-size: clamp(28px, 5vw, 48px);
+      letter-spacing: .03em;
+      text-align: center; line-height: 1;
+    }
+    .game-sub {
+      font-family: var(--mono); font-size: 8px; letter-spacing: .24em;
+      text-transform: uppercase; color: var(--dim);
+    }
+
+    /* ── DIFFICULTY ── */
+    .diff-row {
+      display: flex; gap: 8px;
+    }
+    .diff-btn {
+      font-family: var(--mono); font-size: 8px; font-weight: 700;
+      letter-spacing: .18em; text-transform: uppercase;
+      padding: 6px 14px; border: 1px solid var(--rule);
+      background: transparent; color: var(--dim); cursor: none;
+      transition: all .15s;
+    }
+    .diff-btn:hover, .diff-btn.active {
+      border-color: var(--ink); color: var(--ink);
+      background: var(--ink); color: var(--bg);
+    }
+
+    /* ── STATUS BAR ── */
+    .status-bar {
+      width: 100%; max-width: 640px;
+      padding: 0 24px 12px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .stat {
+      font-family: var(--mono); font-size: 11px; letter-spacing: .12em;
+      min-width: 52px;
+    }
+    .stat-mines { text-align: left; }
+    .stat-time  { text-align: right; }
+    .reset-btn {
+      font-family: var(--mono); font-size: 12px;
+      background: none; border: none; cursor: none;
+      transition: transform .15s;
+      line-height: 1;
+    }
+    .reset-btn:hover { transform: rotate(180deg) scale(1.2); }
+
+    /* ── BOARD ── */
+    .board-wrap {
+      padding: 0 24px 60px;
+      display: flex; justify-content: center;
+    }
+    .board {
+      display: inline-grid;
+      gap: 2px;
+      border: 1px solid var(--rule);
+      padding: 8px;
+      background: var(--rule);
+      user-select: none;
+    }
+
+    /* ── CELL ── */
+    .cell {
+      width: 28px; height: 28px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--mono); font-size: 11px; font-weight: 700;
+      background: var(--cell-un);
+      border: none; cursor: none;
+      transition: background .08s;
+      position: relative;
+    }
+    .cell.unrev {
+      background: var(--cell-un);
+    }
+    .cell.unrev:hover { background: #e8e8e6; }
+    .cell.rev {
+      background: var(--cell-rv);
+    }
+    .cell.flagged::after {
+      content: 'CC';
+      font-family: var(--mono); font-size: 7px; font-weight: 700;
+      color: var(--ink); letter-spacing: -.02em;
+    }
+    .cell.mine-hit { background: #111; }
+    .cell.mine-hit::after {
+      content: '✦';
+      font-size: 12px; color: #fff;
+    }
+    .cell.mine-miss { background: var(--cell-rv); }
+    .cell.mine-miss::after {
+      content: '✦';
+      font-size: 12px; color: var(--muted);
+    }
+
+    /* Number colors — minimal scale */
+    .n1 { color: #aaa; }
+    .n2 { color: #888; }
+    .n3 { color: #555; }
+    .n4 { color: #333; }
+    .n5 { color: #222; }
+    .n6 { color: #111; }
+    .n7 { color: #000; }
+    .n8 { color: #000; }
+
+    /* ── MESSAGE ── */
+    .msg {
+      font-family: var(--abril);
+      font-size: clamp(20px, 4vw, 36px);
+      text-align: center; letter-spacing: .03em;
+      padding: 12px 0 4px;
+      min-height: 48px;
+    }
+    .msg.win  { color: var(--ink); }
+    .msg.lose { color: var(--dim); }
+
+    /* ── INSTRUCTIONS ── */
+    .instructions {
+      padding: 0 24px;
+      max-width: 480px;
+      text-align: center;
+      margin-top: 8px;
+    }
+    .instructions p {
+      font-family: var(--mono); font-size: 8px; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--muted); line-height: 2;
+    }
+
+    /* Responsive */
+    @media (max-width: 400px) {
+      .cell { width: 24px; height: 24px; font-size: 9px; }
+    }
+
+    ::-webkit-scrollbar { width: 2px; }
+    ::-webkit-scrollbar-thumb { background: #ddd; }
+
+  </style>
+</head>
+<body>
+
+<div class="c-dot" id="cDot"></div>
+<div class="c-ring" id="cRing"></div>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-t" id="tickerT">
+    <span class="ti">Close Community</span><span class="ts"> ✦ </span>
+    <span class="ti">Play</span><span class="ts"> ✦ </span>
+    <span class="ti">Busca Minas</span><span class="ts"> ✦ </span>
+    <span class="ti">Ciudad de Panamá</span><span class="ts"> ✦ </span>
+    <span class="ti">Good Luck</span><span class="ts"> ✦ </span>
+    <span class="ti">Close Community</span><span class="ts"> ✦ </span>
+    <span class="ti">Play</span><span class="ts"> ✦ </span>
+    <span class="ti">Busca Minas</span><span class="ts"> ✦ </span>
+    <span class="ti">Ciudad de Panamá</span><span class="ts"> ✦ </span>
+    <span class="ti">Good Luck</span><span class="ts"> ✦ </span>
+  </div>
+</div>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <a href="index.html" class="tb-back">← Back</a>
+  <span class="tb-title">Close Community</span>
+  <span class="tb-right">Play</span>
+</div>
+
+<!-- PAGE -->
+<div class="page">
+
+  <div class="game-head">
+    <h1 class="game-title">Busca Minas</h1>
+    <p class="game-sub">Minesweeper — Close Community Edition</p>
+
+    <div class="diff-row">
+      <button class="diff-btn active" id="d-easy"   onclick="setDiff('easy')">Easy</button>
+      <button class="diff-btn"        id="d-medium" onclick="setDiff('medium')">Medium</button>
+      <button class="diff-btn"        id="d-hard"   onclick="setDiff('hard')">Hard</button>
+    </div>
+  </div>
+
+  <div class="status-bar">
+    <span class="stat stat-mines" id="mineCount">✦ 10</span>
+    <div>
+      <div class="msg" id="msg"></div>
+      <button class="reset-btn" id="resetBtn" title="New Game">↻</button>
+    </div>
+    <span class="stat stat-time"  id="timerEl">0:00</span>
+  </div>
+
+  <div class="board-wrap">
+    <div class="board" id="board" oncontextmenu="return false"></div>
+  </div>
+
+  <div class="instructions">
+    <p>Left click — reveal &nbsp;·&nbsp; Right click — flag CC &nbsp;·&nbsp; ↻ — new game</p>
+  </div>
+
+</div>
+
+<script>
+/* ── CURSOR ── */
+const dot = document.getElementById('cDot');
+const ring = document.getElementById('cRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e=>{mx=e.clientX;my=e.clientY;});
+(function loop(){
+  rx+=(mx-rx)*.1; ry+=(my-ry)*.1;
+  dot.style.transform=`translate(${mx-2.5}px,${my-2.5}px)`;
+  ring.style.transform=`translate(${rx-16}px,${ry-16}px)`;
+  requestAnimationFrame(loop);
+})();
+document.querySelectorAll('button,a').forEach(el=>{
+  el.addEventListener('mouseenter',()=>ring.classList.add('hov'));
+  el.addEventListener('mouseleave',()=>ring.classList.remove('hov'));
+});
+
+/* ── TICKER ── */
+const tk=document.getElementById('tickerT');
+tk.innerHTML+=tk.innerHTML;
+
+/* ══════════════════════════════════════
+   MINESWEEPER ENGINE
+══════════════════════════════════════ */
+const DIFFS = {
+  easy:   { rows:9,  cols:9,  mines:10 },
+  medium: { rows:16, cols:16, mines:40 },
+  hard:   { rows:16, cols:30, mines:99 },
+};
+
+let cfg       = DIFFS.easy;
+let board     = [];   // 2D: -1=mine, 0-8=count
+let revealed  = [];   // 2D bool
+let flagged   = [];   // 2D bool
+let state     = 'idle'; // idle | playing | won | lost
+let firstClick= true;
+let timerSec  = 0;
+let timerInt  = null;
+let hitCell   = null; // [r,c] of clicked mine
+
+function setDiff(key) {
+  document.querySelectorAll('.diff-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('d-'+key).classList.add('active');
+  cfg = DIFFS[key];
+  initGame();
+}
+
+function initGame() {
+  clearInterval(timerInt);
+  timerSec  = 0;
+  state     = 'idle';
+  firstClick= true;
+  hitCell   = null;
+  updateTimer();
+  document.getElementById('msg').textContent = '';
+  document.getElementById('msg').className = 'msg';
+
+  const {rows, cols, mines} = cfg;
+  board    = Array.from({length:rows}, ()=>Array(cols).fill(0));
+  revealed = Array.from({length:rows}, ()=>Array(cols).fill(false));
+  flagged  = Array.from({length:rows}, ()=>Array(cols).fill(false));
+
+  updateMineCount();
+  renderBoard();
+}
+
+function placeMines(er, ec) {
+  const {rows, cols, mines} = cfg;
+  const excluded = new Set();
+  for(let dr=-1;dr<=1;dr++) for(let dc=-1;dc<=1;dc++) {
+    const nr=er+dr, nc=ec+dc;
+    if(nr>=0&&nr<rows&&nc>=0&&nc<cols) excluded.add(`${nr},${nc}`);
+  }
+  let placed=0;
+  while(placed<mines){
+    const r=Math.floor(Math.random()*rows);
+    const c=Math.floor(Math.random()*cols);
+    if(board[r][c]!==-1 && !excluded.has(`${r},${c}`)){
+      board[r][c]=-1; placed++;
+    }
+  }
+  for(let r=0;r<rows;r++) for(let c=0;c<cols;c++) {
+    if(board[r][c]===-1) continue;
+    let n=0;
+    for(let dr=-1;dr<=1;dr++) for(let dc=-1;dc<=1;dc++){
+      const nr=r+dr,nc=c+dc;
+      if(nr>=0&&nr<rows&&nc>=0&&nc<cols&&board[nr][nc]===-1) n++;
+    }
+    board[r][c]=n;
+  }
+}
+
+function reveal(r,c){
+  const {rows,cols} = cfg;
+  if(state==='won'||state==='lost') return;
+  if(revealed[r][c]||flagged[r][c]) return;
+
+  if(firstClick){
+    placeMines(r,c);
+    firstClick=false;
+    state='playing';
+    startTimer();
+  }
+
+  revealed[r][c]=true;
+
+  if(board[r][c]===-1){
+    state='lost'; hitCell=[r,c];
+    clearInterval(timerInt);
+    revealAllMines();
+    renderBoard();
+    const msg=document.getElementById('msg');
+    msg.textContent='Gone.'; msg.className='msg lose';
+    return;
+  }
+
+  if(board[r][c]===0){
+    for(let dr=-1;dr<=1;dr++) for(let dc=-1;dc<=1;dc++){
+      const nr=r+dr,nc=c+dc;
+      if(nr>=0&&nr<rows&&nc>=0&&nc<cols&&!revealed[nr][nc]&&!flagged[nr][nc])
+        reveal(nr,nc);
+    }
+  }
+
+  checkWin();
+  renderBoard();
+}
+
+function toggleFlag(r,c){
+  if(state==='won'||state==='lost') return;
+  if(revealed[r][c]) return;
+  if(state==='idle') return; // can't flag before first click
+  flagged[r][c]=!flagged[r][c];
+  updateMineCount();
+  renderBoard();
+}
+
+function revealAllMines(){
+  const {rows,cols}=cfg;
+  for(let r=0;r<rows;r++) for(let c=0;c<cols;c++)
+    if(board[r][c]===-1) revealed[r][c]=true;
+}
+
+function checkWin(){
+  const {rows,cols,mines}=cfg;
+  let unrevealed=0;
+  for(let r=0;r<rows;r++) for(let c=0;c<cols;c++)
+    if(!revealed[r][c]&&board[r][c]!==-1) unrevealed++;
+  if(unrevealed===0){
+    state='won';
+    clearInterval(timerInt);
+    const msg=document.getElementById('msg');
+    msg.textContent='Belong.'; msg.className='msg win';
+  }
+}
+
+/* ── RENDER ── */
+function renderBoard(){
+  const {rows,cols}=cfg;
+  const el=document.getElementById('board');
+  el.style.gridTemplateColumns=`repeat(${cols},28px)`;
+
+  el.innerHTML='';
+  for(let r=0;r<rows;r++) for(let c=0;c<cols;c++){
+    const cell=document.createElement('div');
+    const isMine=board[r][c]===-1;
+    const isRev=revealed[r][c];
+    const isFlag=flagged[r][c];
+    const isHit=hitCell&&hitCell[0]===r&&hitCell[1]===c;
+
+    cell.className='cell';
+
+    if(!isRev && !isFlag){
+      cell.classList.add('unrev');
+    } else if(!isRev && isFlag){
+      cell.classList.add('flagged');
+    } else if(isRev && isMine){
+      cell.classList.add(isHit ? 'mine-hit' : 'mine-miss');
+    } else if(isRev && !isMine){
+      cell.classList.add('rev');
+      const n=board[r][c];
+      if(n>0){
+        cell.textContent=n;
+        cell.classList.add(`n${n}`);
+      }
+    }
+
+    const row=r, col=c;
+    cell.addEventListener('click', ()=>reveal(row,col));
+    cell.addEventListener('contextmenu', e=>{e.preventDefault(); toggleFlag(row,col);});
+    el.appendChild(cell);
+  }
+}
+
+/* ── TIMER ── */
+function startTimer(){
+  timerInt=setInterval(()=>{timerSec++;updateTimer();},1000);
+}
+function updateTimer(){
+  const m=Math.floor(timerSec/60), s=timerSec%60;
+  document.getElementById('timerEl').textContent=`${m}:${s.toString().padStart(2,'0')}`;
+}
+
+/* ── MINES REMAINING ── */
+function updateMineCount(){
+  const {rows,cols}=cfg;
+  let flags=0;
+  for(let r=0;r<rows;r++) for(let c=0;c<cols;c++) if(flagged[r][c]) flags++;
+  document.getElementById('mineCount').textContent=`✦ ${cfg.mines-flags}`;
+}
+
+/* ── RESET ── */
+document.getElementById('resetBtn').addEventListener('click', initGame);
+
+/* ── INIT ── */
+initGame();
+</script>
+</body>
+</html>
