@@ -13,12 +13,12 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --black:  #000000;
-      --white:  #ffffff;
-      --off:    #f5f5f0;
-      --dim:    #555555;
-      --muted:  #2a2a2a;
-      --rule:   #111111;
+      --black:  #ffffff;
+      --white:  #111111;
+      --off:    #0a0a0a;
+      --dim:    #888888;
+      --muted:  #cccccc;
+      --rule:   #e8e8e8;
       --mono:   'Space Mono', monospace;
       --sans:   'Space Grotesk', Helvetica, Arial, sans-serif;
     }
@@ -49,13 +49,13 @@
     .c-ring {
       position: fixed; top: 0; left: 0;
       width: 32px; height: 32px;
-      border: 1px solid rgba(255,255,255,.3);
+      border: 1px solid rgba(0,0,0,.25);
       border-radius: 50%;
       pointer-events: none; z-index: 99998;
       will-change: transform;
       transition: width .2s, height .2s, border-color .2s;
     }
-    .c-ring.hov { width: 48px; height: 48px; border-color: rgba(255,255,255,.55); }
+    .c-ring.hov { width: 48px; height: 48px; border-color: rgba(0,0,0,.5); }
     .c-ring.gon { width: 56px; height: 56px; border-color: var(--dim); }
 
     /* ═══════════════════════════════════════
@@ -100,12 +100,12 @@
     /* The card */
     .lobby-card {
       width: min(520px, 92vw);
-      border: 1px solid #1c1c1c;
+      border: 1px solid #e0e0e0;
       padding: 52px 48px 44px;
       display: flex; flex-direction: column;
       gap: 0;
       position: relative;
-      background: #030303;
+      background: #fafafa;
       animation: cardIn .9s cubic-bezier(.25,.46,.45,.94) both;
       animation-delay: .15s;
     }
@@ -256,6 +256,7 @@
       width: min(960px, 96vw);
       display: block;
       user-select: none;
+      filter: invert(1);
     }
 
     .hero-season {
@@ -315,6 +316,7 @@
     .pc-img {
       position: relative; overflow: hidden;
       aspect-ratio: 3/4;
+      background: #f2f2f0;
     }
     .pc-img img {
       width: 100%; height: 100%;
@@ -357,11 +359,11 @@
     .szs { display: flex; gap: 4px; flex-wrap: wrap; }
     .sz {
       font-family: var(--mono); font-size: 8px; letter-spacing: .06em;
-      padding: 4px 9px; border: 1px solid #1c1c1c;
+      padding: 4px 9px; border: 1px solid #ddd;
       background: transparent; color: var(--dim); cursor: none;
       transition: border-color .15s, color .15s;
     }
-    .sz:hover, .sz.on { border-color: #444; color: var(--white); }
+    .sz:hover, .sz.on { border-color: #555; color: var(--white); }
 
     /* Add */
     .add {
@@ -369,7 +371,7 @@
       background: transparent; color: var(--white);
       font-family: var(--mono); font-size: 8px; font-weight: 700;
       letter-spacing: .24em; text-transform: uppercase;
-      border: 1px solid #1e1e1e; cursor: none;
+      border: 1px solid #ccc; cursor: none;
       transition: border-color .2s, background .2s, color .2s;
     }
     .add:hover { border-color: var(--white); background: var(--white); color: var(--black); }
@@ -414,7 +416,7 @@
       background:
         repeating-linear-gradient(0deg,  transparent, transparent 47px, var(--rule) 47px, var(--rule) 48px),
         repeating-linear-gradient(90deg, transparent, transparent 47px, var(--rule) 47px, var(--rule) 48px);
-      opacity: .5;
+      opacity: 1;
     }
     .pin-wrap { position: relative; z-index: 1; text-align: center; }
     .pin-line {
@@ -504,7 +506,7 @@
     .cv.open { opacity: 1; pointer-events: all; }
     .cd {
       position: fixed; top: 0; right: 0; height: 100vh;
-      width: 320px; background: #060606;
+      width: 320px; background: #fafafa;
       border-left: 1px solid var(--rule);
       z-index: 2001; transform: translateX(100%);
       transition: transform .34s cubic-bezier(.25,.46,.45,.94);
@@ -669,7 +671,7 @@
     <!-- LOGO — wordmark at top -->
     <div class="hero-logo-wrap rv">
       <img class="hero-logo"
-           src="logos%20CC/TYPO_LOGO.png"
+           src="logos%20CC/LETTERS_LOGO_TRANSPARENT.png"
            alt="Close Community" />
     </div>
 
