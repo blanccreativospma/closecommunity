@@ -231,7 +231,7 @@
       min-height: 100vh;
       padding: 100px 40px 80px;
       display: flex; flex-direction: column;
-      justify-content: flex-end;
+      justify-content: space-between;
       position: relative; overflow: hidden;
       border-bottom: 1px solid var(--rule);
     }
@@ -243,6 +243,21 @@
       letter-spacing: -.04em; user-select: none;
       pointer-events: none; white-space: nowrap;
     }
+
+    /* Logo wordmark */
+    .hero-logo-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      padding-top: 8px;
+    }
+    .hero-logo {
+      width: min(960px, 96vw);
+      display: block;
+      user-select: none;
+    }
+
     .hero-season {
       font-family: var(--mono); font-size: 8px; letter-spacing: .28em;
       text-transform: uppercase; color: var(--dim); margin-bottom: 28px;
@@ -620,8 +635,6 @@
 <nav id="nav">
   <a href="#" class="n-logo">Close Community</a>
   <div class="n-links">
-    <a href="#cargo"   class="n-link">Cargo Drop</a>
-    <a href="#archive" class="n-link">Archive</a>
     <button class="n-cart" id="cartBtn">Cart (<span id="cartN">0</span>)</button>
   </div>
 </nav>
@@ -652,14 +665,25 @@
   <!-- HERO -->
   <section class="hero">
     <div class="hero-ghost" aria-hidden="true">CC</div>
-    <div class="hero-season rv">Capsule I &nbsp;—&nbsp; Ciudad de Panamá &nbsp;—&nbsp; 2026</div>
-    <h2 class="hero-h rv d1">U Will<br>Want to<br>Belong.</h2>
-    <div class="hero-meta rv d2">
-      <span class="hero-tag">Close Community</span>
-      <div class="hero-sep"></div>
-      <span class="hero-tag">Underground</span>
-      <div class="hero-sep"></div>
-      <span class="hero-tag">Limited</span>
+
+    <!-- LOGO — wordmark at top -->
+    <div class="hero-logo-wrap rv">
+      <img class="hero-logo"
+           src="logos%20CC/TYPO_LOGO.png"
+           alt="Close Community" />
+    </div>
+
+    <!-- MANIFESTO — at bottom -->
+    <div>
+      <div class="hero-season rv d1">Capsule I &nbsp;—&nbsp; Ciudad de Panamá &nbsp;—&nbsp; 2026</div>
+      <h2 class="hero-h rv d2">U Will<br>Want to<br>Belong.</h2>
+      <div class="hero-meta rv d3">
+        <span class="hero-tag">Close Community</span>
+        <div class="hero-sep"></div>
+        <span class="hero-tag">Underground</span>
+        <div class="hero-sep"></div>
+        <span class="hero-tag">Limited</span>
+      </div>
     </div>
   </section>
 
@@ -785,7 +809,12 @@
 
   </div>
 
-  <!-- CARGO -->
+  <!-- ══════════════════════════════════════════════════════════
+       LEGO PIECE — CARGO DROP
+       Descomentar cuando haya un drop activo.
+       Reemplazar LAT/LNG con coordenadas reales antes de activar.
+  ═══════════════════════════════════════════════════════════ -->
+  <!--
   <div class="sm rv" id="cargo">
     <span class="sm-l">Cargo Drop</span>
     <span class="sm-r">Ciudad de Panamá</span>
@@ -811,8 +840,14 @@
       </div>
     </div>
   </div>
+  -->
 
-  <!-- ARCHIVE -->
+  <!-- ══════════════════════════════════════════════════════════
+       LEGO PIECE — ARCHIVE
+       Descomentar cuando haya piezas archivadas que mostrar.
+       Agregar un <div class="arc-row"> por cada pieza gone.
+  ═══════════════════════════════════════════════════════════ -->
+  <!--
   <div class="sm rv" id="archive">
     <span class="sm-l">Archive</span>
     <span class="sm-r">Gone. Not returning.</span>
@@ -833,6 +868,7 @@
       <span class="arc-gone">Gone.</span>
     </div>
   </div>
+  -->
 
 </main>
 
@@ -842,8 +878,6 @@
     <div class="f-links">
       <a href="#" class="f-link">Instagram</a>
       <a href="#" class="f-link">TikTok</a>
-      <a href="#cargo"   class="f-link">Cargo Drop</a>
-      <a href="#archive" class="f-link">Archive</a>
     </div>
   </div>
   <div class="f-r">
