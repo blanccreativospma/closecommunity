@@ -1,0 +1,1763 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CLOSE COMMUNITY — BRAND BIBLE V2</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #000000;
+      --white: #ffffff;
+      --gray-dark: #111111;
+      --gray-mid: #333333;
+      --gray-light: #888888;
+      --gray-subtle: #444444;
+      --accent: #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Space Grotesk', -apple-system, Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAVIGATION ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      background: rgba(0,0,0,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--gray-mid);
+      z-index: 100;
+      padding: 0 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+    }
+
+    nav .nav-brand {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    nav .nav-label {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gray-light);
+      font-family: 'Space Mono', monospace;
+    }
+
+    /* ── COVER ── */
+    .cover {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 120px 80px 80px;
+      border-bottom: 1px solid var(--gray-mid);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cover::before {
+      content: 'CC';
+      position: absolute;
+      right: -60px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 600px;
+      font-weight: 700;
+      color: var(--gray-dark);
+      line-height: 1;
+      user-select: none;
+      pointer-events: none;
+      letter-spacing: -0.05em;
+    }
+
+    .cover-top { position: relative; z-index: 1; }
+
+    .cover-title {
+      font-size: clamp(56px, 8vw, 120px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 0.9;
+      text-transform: uppercase;
+    }
+
+    .cover-subtitle {
+      font-size: 13px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gray-light);
+      margin-top: 32px;
+      font-family: 'Space Mono', monospace;
+    }
+
+    .cover-manifesto {
+      font-size: clamp(24px, 3.5vw, 48px);
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--gray-mid);
+      padding-top: 40px;
+    }
+
+    .cover-meta {
+      display: flex;
+      gap: 60px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cover-meta-item { }
+    .cover-meta-label {
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gray-light);
+      font-family: 'Space Mono', monospace;
+      margin-bottom: 4px;
+    }
+    .cover-meta-value {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    /* ── LAYOUT ── */
+    .page {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 100px 0;
+      border-bottom: 1px solid var(--gray-mid);
+    }
+
+    section:last-child { border-bottom: none; }
+
+    .section-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 32px;
+      margin-bottom: 64px;
+    }
+
+    .section-number {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      font-family: 'Space Mono', monospace;
+      color: var(--gray-light);
+      padding-top: 8px;
+      min-width: 40px;
+    }
+
+    .section-title {
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+
+    /* ── TOC ── */
+    .toc {
+      background: var(--gray-dark);
+      padding: 60px 80px;
+      border-bottom: 1px solid var(--gray-mid);
+    }
+
+    .toc-title {
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gray-light);
+      font-family: 'Space Mono', monospace;
+      margin-bottom: 40px;
+    }
+
+    .toc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 8px 48px;
+    }
+
+    .toc-item {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--gray-mid);
+      text-decoration: none;
+      color: var(--white);
+      transition: color 0.2s;
+    }
+
+    .toc-item:hover { color: var(--gray-light); }
+
+    .toc-item-num {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      color: var(--gray-light);
+      min-width: 28px;
+    }
+
+    .toc-item-label {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* ── TYPOGRAPHY ── */
+    h3 {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 16px;
+      margin-top: 48px;
+    }
+
+    h3:first-child { margin-top: 0; }
+
+    p {
+      font-size: 15px;
+      line-height: 1.8;
+      color: #cccccc;
+      margin-bottom: 16px;
+    }
+
+    p strong {
+      color: var(--white);
+      font-weight: 600;
+    }
+
+    p:last-child { margin-bottom: 0; }
+
+    /* ── DECLARATION ── */
+    .declaration {
+      font-size: clamp(20px, 2.5vw, 32px);
+      font-weight: 300;
+      line-height: 1.6;
+      color: var(--white);
+      max-width: 720px;
+    }
+
+    .declaration strong {
+      font-weight: 700;
+      display: block;
+      margin-top: 32px;
+      font-size: clamp(24px, 3vw, 40px);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* ── QUOTE BLOCK ── */
+    .quote {
+      border-left: 2px solid var(--white);
+      padding: 24px 32px;
+      margin: 40px 0;
+      background: var(--gray-dark);
+    }
+
+    .quote-text {
+      font-size: 17px;
+      font-style: italic;
+      color: var(--white);
+      line-height: 1.7;
+      margin-bottom: 8px;
+    }
+
+    .quote-author {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gray-light);
+      font-family: 'Space Mono', monospace;
+    }
+
+    /* ── VIRGIL FRAMEWORK CARDS ── */
+    .framework-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin: 40px 0;
+    }
+
+    .framework-card {
+      background: var(--gray-dark);
+      padding: 40px;
+      border: 1px solid var(--gray-mid);
+    }
+
+    .framework-card:hover { background: #1a1a1a; }
+
+    .framework-num {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      color: var(--gray-light);
+      letter-spacing: 0.2em;
+      margin-bottom: 16px;
+    }
+
+    .framework-name {
+      font-size: 16px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+    }
+
+    .framework-desc {
+      font-size: 13px;
+      color: #aaaaaa;
+      line-height: 1.7;
+    }
+
+    .framework-applied {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--gray-mid);
+      font-size: 12px;
+      color: var(--gray-light);
+      letter-spacing: 0.05em;
+    }
+
+    .framework-applied span {
+      color: var(--white);
+      font-weight: 600;
+    }
+
+    /* ── VALUES ── */
+    .values-list { }
+
+    .value-item {
+      padding: 40px 0;
+      border-bottom: 1px solid var(--gray-mid);
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    .value-item:last-child { border-bottom: none; }
+
+    .value-name {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-family: 'Space Mono', monospace;
+      padding-top: 4px;
+    }
+
+    .value-desc {
+      font-size: 15px;
+      color: #cccccc;
+      line-height: 1.8;
+    }
+
+    /* ── AUDIENCE ── */
+    .audience-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin-top: 40px;
+    }
+
+    .audience-col {
+      background: var(--gray-dark);
+      padding: 40px;
+    }
+
+    .audience-col-title {
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gray-light);
+      font-family: 'Space Mono', monospace;
+      margin-bottom: 24px;
+    }
+
+    .audience-list {
+      list-style: none;
+    }
+
+    .audience-list li {
+      font-size: 14px;
+      color: #cccccc;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--gray-mid);
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .audience-list li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--gray-light);
+    }
+
+    .audience-list li:last-child { border-bottom: none; }
+
+    /* ── VOICE EXAMPLES ── */
+    .voice-example {
+      margin: 24px 0;
+      background: var(--gray-dark);
+      border: 1px solid var(--gray-mid);
+      overflow: hidden;
+    }
+
+    .voice-context {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gray-light);
+      font-family: 'Space Mono', monospace;
+      padding: 12px 20px;
+      border-bottom: 1px solid var(--gray-mid);
+      background: #0a0a0a;
+    }
+
+    .voice-row {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 16px;
+      padding: 16px 20px;
+      border-bottom: 1px solid #1a1a1a;
+      align-items: start;
+    }
+
+    .voice-row:last-child { border-bottom: none; }
+
+    .voice-sign {
+      font-weight: 700;
+      font-size: 14px;
+      padding-top: 2px;
+    }
+
+    .voice-sign.no { color: #555555; }
+    .voice-sign.yes { color: var(--white); }
+
+    .voice-text {
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .voice-text.no { color: #555555; text-decoration: line-through; text-decoration-color: #333333; }
+    .voice-text.yes { color: var(--white); font-weight: 500; }
+
+    /* ── VISUAL IDENTITY ── */
+    .palette {
+      display: flex;
+      gap: 2px;
+      margin: 32px 0;
+      height: 80px;
+    }
+
+    .palette-swatch {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 12px;
+    }
+
+    .palette-swatch .swatch-name {
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      font-family: 'Space Mono', monospace;
+    }
+
+    /* ── PRODUCT SYSTEM ── */
+    .layer-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      margin-top: 40px;
+    }
+
+    .layer-card {
+      background: var(--gray-dark);
+      border: 1px solid var(--gray-mid);
+      padding: 40px;
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 40px;
+    }
+
+    .layer-num {
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--gray-mid);
+      line-height: 1;
+      font-family: 'Space Mono', monospace;
+    }
+
+    .layer-content { }
+
+    .layer-title {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .layer-subtitle {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gray-light);
+      font-family: 'Space Mono', monospace;
+      margin-bottom: 20px;
+    }
+
+    .layer-desc {
+      font-size: 14px;
+      color: #aaaaaa;
+      line-height: 1.8;
+    }
+
+    .layer-rules {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--gray-mid);
+    }
+
+    .layer-rules li {
+      font-size: 13px;
+      color: #888888;
+      padding: 4px 0;
+      padding-left: 16px;
+      position: relative;
+      list-style: none;
+    }
+
+    .layer-rules li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--gray-mid);
+    }
+
+    /* ── GONE DISPLAY ── */
+    .gone-demo {
+      border: 1px solid var(--gray-mid);
+      margin: 32px 0;
+      overflow: hidden;
+    }
+
+    .gone-demo-header {
+      background: #0a0a0a;
+      padding: 12px 20px;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gray-light);
+      font-family: 'Space Mono', monospace;
+      border-bottom: 1px solid var(--gray-mid);
+    }
+
+    .gone-demo-row {
+      display: grid;
+      grid-template-columns: 1fr 120px 120px;
+      padding: 20px 24px;
+      border-bottom: 1px solid #1a1a1a;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .gone-demo-row:last-child { border-bottom: none; }
+
+    .gone-item-name {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .gone-item-price {
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+    }
+
+    .gone-badge {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-align: right;
+    }
+
+    .gone-badge.active { color: var(--white); }
+    .gone-badge.gone { color: var(--gray-light); }
+
+    /* ── DROP TIMELINE ── */
+    .drop-timeline {
+      background: var(--gray-dark);
+      padding: 32px 40px;
+      border: 1px solid var(--gray-mid);
+      margin: 32px 0;
+      font-family: 'Space Mono', monospace;
+    }
+
+    .drop-timeline-row {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 32px;
+      padding: 12px 0;
+      border-bottom: 1px solid #1a1a1a;
+      font-size: 12px;
+    }
+
+    .drop-timeline-row:last-child { border-bottom: none; }
+
+    .drop-time { color: var(--gray-light); }
+    .drop-event { color: var(--white); }
+
+    /* ── TABLE ── */
+    .brand-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 32px 0;
+    }
+
+    .brand-table th {
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gray-light);
+      font-family: 'Space Mono', monospace;
+      text-align: left;
+      padding: 12px 20px;
+      border-bottom: 1px solid var(--gray-mid);
+      background: #0a0a0a;
+    }
+
+    .brand-table td {
+      font-size: 14px;
+      padding: 16px 20px;
+      border-bottom: 1px solid #1a1a1a;
+      color: #cccccc;
+      vertical-align: top;
+    }
+
+    .brand-table td:first-child {
+      color: var(--white);
+      font-weight: 600;
+    }
+
+    .brand-table tr:last-child td { border-bottom: none; }
+
+    /* ── RULES ── */
+    .rules-list {
+      counter-reset: rules;
+      list-style: none;
+      margin-top: 40px;
+    }
+
+    .rule-item {
+      counter-increment: rules;
+      display: grid;
+      grid-template-columns: 60px 1fr;
+      gap: 32px;
+      padding: 32px 0;
+      border-bottom: 1px solid var(--gray-mid);
+      align-items: start;
+    }
+
+    .rule-item:last-child { border-bottom: none; }
+
+    .rule-num {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--gray-light);
+      padding-top: 6px;
+    }
+
+    .rule-num::before { content: counter(rules, decimal-leading-zero); }
+
+    .rule-content { }
+
+    .rule-title {
+      font-size: 16px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 10px;
+    }
+
+    .rule-desc {
+      font-size: 14px;
+      color: #aaaaaa;
+      line-height: 1.8;
+    }
+
+    /* ── WORDS ── */
+    .words-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin-top: 40px;
+    }
+
+    .words-col {
+      background: var(--gray-dark);
+      padding: 40px;
+    }
+
+    .words-col-title {
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gray-light);
+      font-family: 'Space Mono', monospace;
+      margin-bottom: 24px;
+    }
+
+    .words-list {
+      list-style: none;
+    }
+
+    .words-list li {
+      font-size: 15px;
+      font-weight: 500;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--gray-mid);
+      color: var(--white);
+    }
+
+    .words-list.no li { color: #444444; text-decoration: line-through; text-decoration-color: #333333; }
+    .words-list li:last-child { border-bottom: none; }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 80px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-top: 1px solid var(--gray-mid);
+    }
+
+    .footer-brand {
+      font-size: 48px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      color: var(--gray-dark);
+    }
+
+    .footer-meta {
+      text-align: right;
+    }
+
+    .footer-meta p {
+      font-size: 11px;
+      color: var(--gray-light);
+      font-family: 'Space Mono', monospace;
+      letter-spacing: 0.1em;
+      margin-bottom: 4px;
+    }
+
+    /* ── TAG ── */
+    .tag {
+      display: inline-block;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-family: 'Space Mono', monospace;
+      border: 1px solid var(--gray-mid);
+      padding: 4px 10px;
+      color: var(--gray-light);
+      margin-bottom: 24px;
+    }
+
+    .virgil-tag {
+      border-color: var(--white);
+      color: var(--white);
+    }
+
+    /* ── PERCENT VISUAL ── */
+    .percent-visual {
+      display: grid;
+      grid-template-columns: 97fr 3fr;
+      gap: 2px;
+      height: 64px;
+      margin: 32px 0;
+    }
+
+    .percent-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .percent-bar.existing {
+      background: var(--gray-dark);
+      color: var(--gray-light);
+    }
+
+    .percent-bar.new {
+      background: var(--white);
+      color: var(--black);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 0 24px; }
+      .cover { padding: 96px 24px 60px; }
+      .cover::before { display: none; }
+      .toc { padding: 48px 24px; }
+      .toc-grid { grid-template-columns: 1fr; }
+      .page { padding: 0 24px; }
+      section { padding: 64px 0; }
+      .framework-grid { grid-template-columns: 1fr; }
+      .audience-split { grid-template-columns: 1fr; }
+      .value-item { grid-template-columns: 1fr; gap: 12px; }
+      .layer-card { grid-template-columns: 1fr; }
+      .layer-num { font-size: 32px; }
+      .words-split { grid-template-columns: 1fr; }
+      .gone-demo-row { grid-template-columns: 1fr 1fr; }
+      .drop-timeline-row { grid-template-columns: 120px 1fr; }
+      footer { padding: 48px 24px; flex-direction: column; gap: 32px; align-items: flex-start; }
+      .footer-brand { font-size: 28px; }
+      .footer-meta { text-align: left; }
+    }
+
+    @media print {
+      nav { display: none; }
+      .cover { padding-top: 80px; min-height: auto; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <a href="#cover" class="nav-brand">Close Community</a>
+  <span class="nav-label">Brand Bible — V2 — 2026</span>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     COVER
+══════════════════════════════════════════ -->
+<div class="cover" id="cover">
+  <div class="cover-top">
+    <h1 class="cover-title">Close<br>Community</h1>
+    <p class="cover-subtitle">Brand Bible &nbsp;/&nbsp; V2 &nbsp;/&nbsp; Ciudad de Panamá &nbsp;/&nbsp; 2026</p>
+  </div>
+
+  <div class="cover-manifesto">
+    U Will Want To Belong
+  </div>
+
+  <div class="cover-meta">
+    <div class="cover-meta-item">
+      <p class="cover-meta-label">Territorio</p>
+      <p class="cover-meta-value">Ciudad de Panamá</p>
+    </div>
+    <div class="cover-meta-item">
+      <p class="cover-meta-label">Categoría</p>
+      <p class="cover-meta-value">Underground / Streetwear</p>
+    </div>
+    <div class="cover-meta-item">
+      <p class="cover-meta-label">Filosofía base</p>
+      <p class="cover-meta-value">Virgil Abloh — Free Game</p>
+    </div>
+    <div class="cover-meta-item">
+      <p class="cover-meta-label">Versión</p>
+      <p class="cover-meta-value">2 — Revisada</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── TOC ── -->
+<div class="toc">
+  <p class="toc-title">Índice</p>
+  <div class="toc-grid">
+    <a href="#declaracion" class="toc-item"><span class="toc-item-num">01</span><span class="toc-item-label">Declaración</span></a>
+    <a href="#virgil" class="toc-item"><span class="toc-item-num">02</span><span class="toc-item-label">Filosofía Virgil Abloh</span></a>
+    <a href="#origen" class="toc-item"><span class="toc-item-num">03</span><span class="toc-item-label">Origen & DNA</span></a>
+    <a href="#mision" class="toc-item"><span class="toc-item-num">04</span><span class="toc-item-label">Misión & Visión</span></a>
+    <a href="#valores" class="toc-item"><span class="toc-item-num">05</span><span class="toc-item-label">Los 5 Valores</span></a>
+    <a href="#publico" class="toc-item"><span class="toc-item-num">06</span><span class="toc-item-label">El Público</span></a>
+    <a href="#voz" class="toc-item"><span class="toc-item-num">07</span><span class="toc-item-label">Tono de Voz</span></a>
+    <a href="#visual" class="toc-item"><span class="toc-item-num">08</span><span class="toc-item-label">Identidad Visual</span></a>
+    <a href="#productos" class="toc-item"><span class="toc-item-num">09</span><span class="toc-item-label">Sistema de Productos</span></a>
+    <a href="#comunidad" class="toc-item"><span class="toc-item-num">10</span><span class="toc-item-label">Reglas de Comunidad</span></a>
+    <a href="#somos" class="toc-item"><span class="toc-item-num">11</span><span class="toc-item-label">Somos / No Somos</span></a>
+    <a href="#reglas" class="toc-item"><span class="toc-item-num">12</span><span class="toc-item-label">Las 7 Reglas</span></a>
+    <a href="#palabras" class="toc-item"><span class="toc-item-num">13</span><span class="toc-item-label">Vocabulario</span></a>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     01 — DECLARACIÓN
+══════════════════════════════════════════ -->
+<div class="page">
+<section id="declaracion">
+  <div class="section-header">
+    <span class="section-number">01</span>
+    <h2 class="section-title">Declaración</h2>
+  </div>
+
+  <div class="declaration">
+    CLOSE COMMUNITY no es una marca de ropa.<br>
+    Es un círculo.<br><br>
+    Cualquiera puede entrar —<br>
+    pero tienes que encontrar la puerta.<br>
+    Nadie te va a dar la dirección.<br><br>
+    La comunidad sabe.<br>
+    El resto se entera después.
+    <strong>U WILL WANT TO BELONG.</strong>
+  </div>
+</section>
+</div>
+
+<!-- ══════════════════════════════════════════
+     02 — FILOSOFÍA VIRGIL ABLOH
+══════════════════════════════════════════ -->
+<div class="page">
+<section id="virgil">
+  <div class="section-header">
+    <span class="section-number">02</span>
+    <h2 class="section-title">Filosofía<br>Virgil Abloh</h2>
+  </div>
+
+  <span class="tag virgil-tag">Free Game — Applied</span>
+
+  <p>Esta marca opera sobre cinco principios extraídos del trabajo de Virgil Abloh —
+  arquitecto, diseñador, DJ, fundador de Off-White, director artístico de LV Men's.
+  No como referencia de estilo, sino como <strong>metodología de construcción.</strong></p>
+
+  <div class="framework-grid">
+
+    <div class="framework-card">
+      <p class="framework-num">PRINCIPIO 01</p>
+      <p class="framework-name">The 3% Rule</p>
+      <p class="framework-desc">"Start with something that exists. Change 3%. That change IS the creative work." El 97% que dejas intacto es curación. El 3% que cambias es la declaración.</p>
+      <div class="framework-applied">
+        Aplicado en CC: <span>Streetwear underground ya existe. Panamá no existía como contexto. Ese es el 3%.</span>
+      </div>
+    </div>
+
+    <div class="framework-card">
+      <p class="framework-num">PRINCIPIO 02</p>
+      <p class="framework-name">Tourist vs. Purist</p>
+      <p class="framework-desc">El purista domina un campo. El turista llega sin hábitos — y por eso sin puntos ciegos. La posición más productiva es turista en campo de puristas.</p>
+      <div class="framework-applied">
+        Aplicado en CC: <span>No vienes de la industria de la moda. Esa distancia es ventaja, no debilidad.</span>
+      </div>
+    </div>
+
+    <div class="framework-card">
+      <p class="framework-num">PRINCIPIO 03</p>
+      <p class="framework-name">The Readymade</p>
+      <p class="framework-desc">Duchamp puso un orinal en un museo. No lo fabricó — lo eligió. Seleccionar es crear. Recontextualizar es arte. El mundo entero es fuente.</p>
+      <div class="framework-applied">
+        Aplicado en CC: <span>Panamá es un readymade. La cultura del Canal, el Caribe urbano, el entre-dos-mundos — todo es fuente.</span>
+      </div>
+    </div>
+
+    <div class="framework-card">
+      <p class="framework-num">PRINCIPIO 04</p>
+      <p class="framework-name">Everything in Quotes</p>
+      <p class="framework-desc">"SHOELACES" escrito en una zapatilla no es decoración. Es una pregunta. Las comillas señalan conciencia — sabemos lo que hacemos, y sabemos que es extraño hacerlo.</p>
+      <div class="framework-applied">
+        Aplicado en CC: <span>"U WILL WANT TO BELONG" pone entre comillas el deseo humano más universal. Eso es el gesto.</span>
+      </div>
+    </div>
+
+    <div class="framework-card" style="grid-column: 1 / -1;">
+      <p class="framework-num">PRINCIPIO 05</p>
+      <p class="framework-name">Free Game — Cheat Codes</p>
+      <p class="framework-desc">"I wanted to assist in providing the means for them to advance on the road to ownership of their ideas." Virgil publicó todo lo que sabía — gratis. El conocimiento compartido no destruye la marca: construye comunidad. Y la comunidad construye marcas.</p>
+      <div class="framework-applied">
+        Aplicado en CC: <span>Mostrar el proceso de construcción de cada drop, cada pieza, cada decisión — no como transparencia corporativa, sino como narrativa. El proceso visible es parte del producto.</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="quote">
+    <p class="quote-text">"No one invented anything. That's where an artist or designer's torment can come in — if you're constantly preoccupied with pretending like you're not influenced."</p>
+    <p class="quote-author">— Virgil Abloh, Columbia University GSAPP, 2017</p>
+  </div>
+
+  <h3>El 3% de CLOSE COMMUNITY — Visual</h3>
+
+  <div class="percent-visual">
+    <div class="percent-bar existing">97% — EXISTE: Streetwear / Drop Culture / Comunidad / Estética Oscura</div>
+    <div class="percent-bar new">3%</div>
+  </div>
+  <p style="font-size:12px; color: var(--gray-light); font-family: 'Space Mono', monospace; letter-spacing: 0.1em;">
+    EL 3% = PANAMÁ + EL GUSTO + EL COURAGE DE PORTARLO
+  </p>
+
+</section>
+</div>
+
+<!-- ══════════════════════════════════════════
+     03 — ORIGEN & DNA
+══════════════════════════════════════════ -->
+<div class="page">
+<section id="origen">
+  <div class="section-header">
+    <span class="section-number">03</span>
+    <h2 class="section-title">Origen<br>& DNA</h2>
+  </div>
+
+  <p>Nació en Ciudad de Panamá. No como negocio — como acuerdo.</p>
+  <p>No filtramos por dinero ni por invitación. Filtramos por <strong>atención.</strong></p>
+  <p>Si estás conectado, llegas. Si no estás conectado, te enteras cuando ya se fue.</p>
+
+  <div class="quote">
+    <p class="quote-text">La marca no tiene historia de fundación heroica. Tiene una verdad: alguien de Panamá consumió cultura global underground, la entendió mejor que nadie local, y ahora la traduce hacia su ciudad — desde adentro.</p>
+    <p class="quote-author">— Turista en moda. Local en cultura.</p>
+  </div>
+
+  <h3>Referencias de DNA</h3>
+
+  <table class="brand-table">
+    <thead>
+      <tr>
+        <th>Referencia</th>
+        <th>Qué tomamos</th>
+        <th>Qué no tomamos</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Supreme / Palace</td>
+        <td>Drop culture, escasez real, el hype construido desde la calle</td>
+        <td>La estética skate literal, el logotipo como único gesto</td>
+      </tr>
+      <tr>
+        <td>CPFM / Raf Simons</td>
+        <td>Arte aplicado al producto, lo distorsionado como lenguaje, lo conceptual</td>
+        <td>Lo caprichoso sin sistema, lo raro por lo raro</td>
+      </tr>
+      <tr>
+        <td>Chrome Hearts</td>
+        <td>La pieza como objeto de deseo permanente, artesanía como argumento</td>
+        <td>El precio como única barrera, la joyería gótica literal</td>
+      </tr>
+      <tr>
+        <td>Corteiz (CRTZ)</td>
+        <td>Cargo drops físicos, la ciudad como escenario, abierto para todos</td>
+        <td>El modelo de password online, el acento UK</td>
+      </tr>
+    </tbody>
+  </table>
+
+</section>
+</div>
+
+<!-- ══════════════════════════════════════════
+     04 — MISIÓN & VISIÓN
+══════════════════════════════════════════ -->
+<div class="page">
+<section id="mision">
+  <div class="section-header">
+    <span class="section-number">04</span>
+    <h2 class="section-title">Misión<br>& Visión</h2>
+  </div>
+
+  <div class="value-item" style="border-top: 1px solid var(--gray-mid);">
+    <div class="value-name">Misión</div>
+    <div class="value-desc">Crear objetos, prendas y experiencias abiertas para todos — que solo encuentran quienes están atentos y tienen el gusto y el courage para portarlas.</div>
+  </div>
+
+  <div class="value-item">
+    <div class="value-name">Visión</div>
+    <div class="value-desc">Ser la referencia cultural underground de Panamá — y eventualmente, de cualquier ciudad donde exista alguien que se reconozca en lo que somos.</div>
+  </div>
+
+  <div class="value-item">
+    <div class="value-name">El objeto readymade</div>
+    <div class="value-desc">El readymade de CLOSE COMMUNITY no es una prenda. Es <strong>el deseo de pertenecer.</strong> Tomamos el impulso humano más universal, lo ponemos en un objeto limitado, y lo dejamos en el mundo. Eso es el producto. La prenda es el vehículo.</div>
+  </div>
+
+</section>
+</div>
+
+<!-- ══════════════════════════════════════════
+     05 — LOS 5 VALORES
+══════════════════════════════════════════ -->
+<div class="page">
+<section id="valores">
+  <div class="section-header">
+    <span class="section-number">05</span>
+    <h2 class="section-title">Los 5<br>Valores</h2>
+  </div>
+
+  <div class="values-list">
+
+    <div class="value-item" style="border-top: 1px solid var(--gray-mid);">
+      <div class="value-name">Scarcity<br>Is Respect</div>
+      <div class="value-desc">
+        Lo que se puede tener fácilmente no vale. Cada pieza es limitada porque debe serlo — no como truco de marketing, sino como principio. Fabricar de más es traicionar a quien llegó primero.
+        <br><br>
+        <em style="color: var(--gray-light); font-size: 13px;">Virgil: "The 97% you leave intact represents curatorial judgment, not inertia."</em>
+      </div>
+    </div>
+
+    <div class="value-item">
+      <div class="value-name">No Explanation<br>Needed</div>
+      <div class="value-desc">
+        No explicamos la marca. No justificamos los precios. No pedimos permiso para existir. El que sabe, sabe. El que no sabe, no es el público.
+        <br><br>
+        <em style="color: var(--gray-light); font-size: 13px;">Virgil: "I love the fact that Off-White can be questioned." — Las comillas crean la pregunta. Nunca la respondemos nosotros.</em>
+      </div>
+    </div>
+
+    <div class="value-item">
+      <div class="value-name">Community<br>Over Audience</div>
+      <div class="value-desc">
+        No tenemos seguidores. Tenemos miembros. Un seguidor consume. Un miembro pertenece y propaga. La diferencia no es semántica — define cada decisión que tomamos.
+        <br><br>
+        <em style="color: var(--gray-light); font-size: 13px;">Virgil: "Free Game" — compartir el conocimiento construye comunidad. La comunidad construye marcas.</em>
+      </div>
+    </div>
+
+    <div class="value-item">
+      <div class="value-name">Art First,<br>Product Second</div>
+      <div class="value-desc">
+        Cada pieza parte del arte. El diseño no decora — comunica. Si una prenda no tiene algo que decir, no existe.
+        <br><br>
+        <em style="color: var(--gray-light); font-size: 13px;">Virgil: "Everything is source material." — La pieza es un readymade que interviene el mundo, no solo el guardarropa.</em>
+      </div>
+    </div>
+
+    <div class="value-item">
+      <div class="value-name">Silence<br>As Power</div>
+      <div class="value-desc">
+        No hablamos de más. El misterio es parte de la marca. Publicar menos vale más que publicar siempre.
+        <br><br>
+        <em style="color: var(--gray-light); font-size: 13px;">El silencio es el acto curatorial más difícil. Virgil llamaba a esto "edición" — lo más importante que un diseñador puede hacer.</em>
+      </div>
+    </div>
+
+  </div>
+</section>
+</div>
+
+<!-- ══════════════════════════════════════════
+     06 — EL PÚBLICO
+══════════════════════════════════════════ -->
+<div class="page">
+<section id="publico">
+  <div class="section-header">
+    <span class="section-number">06</span>
+    <h2 class="section-title">El Público</h2>
+  </div>
+
+  <p>No tiene una edad exacta. Tiene una actitud. Tiene el gusto y el <em>courage</em> para portar algo que no todo el mundo entiende. La marca está abierta para cualquiera — el diseño y el precio son el filtro natural.</p>
+
+  <div class="audience-split">
+    <div class="audience-col">
+      <p class="audience-col-title">Es la persona que</p>
+      <ul class="audience-list">
+        <li>Compra porque quiere la pieza, no porque está de moda</li>
+        <li>Ya dejó atrás las marcas masivas — no las odia, las superó</li>
+        <li>Viene de la calle, el skate, el arte, la música — o de todo</li>
+        <li>Cuando ve algo de CC en la calle, lo reconoce antes de leer el nombre</li>
+        <li>No necesita que le expliques nada</li>
+        <li>Tiene el courage de portar algo que pocos entienden todavía</li>
+        <li>Sabe que pertenece — sin necesidad de que se lo digan</li>
+      </ul>
+    </div>
+    <div class="audience-col" style="background: #0a0a0a;">
+      <p class="audience-col-title">No es la persona que</p>
+      <ul class="audience-list">
+        <li>Compra por status social convencional</li>
+        <li>Sigue tendencias de temporada</li>
+        <li>Necesita validación pública de lo que usa</li>
+        <li>Pregunta "¿dónde lo compro?" cuando el drop ya cerró</li>
+        <li>Quiere un descuento o espera un restock</li>
+        <li>Necesita que la marca se explique en la bio</li>
+      </ul>
+    </div>
+  </div>
+
+</section>
+</div>
+
+<!-- ══════════════════════════════════════════
+     07 — TONO DE VOZ
+══════════════════════════════════════════ -->
+<div class="page">
+<section id="voz">
+  <div class="section-header">
+    <span class="section-number">07</span>
+    <h2 class="section-title">Tono<br>de Voz</h2>
+  </div>
+
+  <div class="value-item" style="border-top: 1px solid var(--gray-mid);">
+    <div class="value-name">Cómo<br>hablamos</div>
+    <div class="value-desc">
+      <strong>Directo.</strong> Sin adornos ni relleno.<br>
+      <strong>Bilingüe natural</strong> — inglés o español según el momento, nunca forzado.<br>
+      <strong>Pocas palabras. Mucho peso.</strong><br>
+      Nunca explicamos por qué algo es bueno — lo mostramos.<br>
+      Confianza absoluta. Sin disculpas.
+    </div>
+  </div>
+
+  <div class="value-item">
+    <div class="value-name">Lo que<br>nunca hacemos</div>
+    <div class="value-desc">
+      Usar emojis decorativos. Escribir párrafos largos en redes. Anunciar drops con energía de retail. Usar hashtags genéricos. Responder a críticas públicamente. Agradecer a seguidores. Explicar el concepto de la marca en bio.
+    </div>
+  </div>
+
+  <h3>Ejemplos de Voz</h3>
+
+  <div class="voice-example">
+    <div class="voice-context">Drop Announcement</div>
+    <div class="voice-row">
+      <div class="voice-sign no">✕</div>
+      <div class="voice-text no">"¡Nuevo drop disponible! Aprovecha antes de que se agote 🔥 Link en bio"</div>
+    </div>
+    <div class="voice-row">
+      <div class="voice-sign yes">→</div>
+      <div class="voice-text yes">"DROP 001 — LIVE."</div>
+    </div>
+  </div>
+
+  <div class="voice-example">
+    <div class="voice-context">Descripción de Marca</div>
+    <div class="voice-row">
+      <div class="voice-sign no">✕</div>
+      <div class="voice-text no">"Somos una marca que celebra la autenticidad y el espíritu libre de la nueva generación"</div>
+    </div>
+    <div class="voice-row">
+      <div class="voice-sign yes">→</div>
+      <div class="voice-text yes">"U WILL WANT TO BELONG."</div>
+    </div>
+  </div>
+
+  <div class="voice-example">
+    <div class="voice-context">Agradecimiento</div>
+    <div class="voice-row">
+      <div class="voice-sign no">✕</div>
+      <div class="voice-text no">"Gracias por su apoyo, significa mucho para nosotros ❤️"</div>
+    </div>
+    <div class="voice-row">
+      <div class="voice-sign yes">→</div>
+      <div class="voice-text yes">[silencio — o una sola imagen sin texto]</div>
+    </div>
+  </div>
+
+  <div class="voice-example">
+    <div class="voice-context">Sold Out</div>
+    <div class="voice-row">
+      <div class="voice-sign no">✕</div>
+      <div class="voice-text no">"¡Se agotó! Gracias a todos los que compraron 🙏"</div>
+    </div>
+    <div class="voice-row">
+      <div class="voice-sign yes">→</div>
+      <div class="voice-text yes">"GONE."</div>
+    </div>
+  </div>
+
+  <div class="voice-example">
+    <div class="voice-context">¿Cuándo hay restock?</div>
+    <div class="voice-row">
+      <div class="voice-sign no">✕</div>
+      <div class="voice-text no">"Hola, por el momento no tenemos fecha de restock pero síguenos para estar al tanto"</div>
+    </div>
+    <div class="voice-row">
+      <div class="voice-sign yes">→</div>
+      <div class="voice-text yes">"No." &nbsp;&nbsp;—&nbsp;&nbsp; o no responder.</div>
+    </div>
+  </div>
+
+</section>
+</div>
+
+<!-- ══════════════════════════════════════════
+     08 — IDENTIDAD VISUAL
+══════════════════════════════════════════ -->
+<div class="page">
+<section id="visual">
+  <div class="section-header">
+    <span class="section-number">08</span>
+    <h2 class="section-title">Identidad<br>Visual</h2>
+  </div>
+
+  <h3>Principios</h3>
+  <p>Menos es siempre más. El logo no necesita color para comunicar. El espacio en blanco es diseño, no ausencia de diseño. Lo oscuro predomina, lo claro es contraste estratégico.</p>
+
+  <h3>Paleta Base</h3>
+
+  <div class="palette">
+    <div class="palette-swatch" style="background: #000000; border: 1px solid #222;">
+      <p class="swatch-name" style="color:#555;">#000000 — Dominante</p>
+    </div>
+    <div class="palette-swatch" style="background: #ffffff;">
+      <p class="swatch-name" style="color:#888;">#FFFFFF — Contraste</p>
+    </div>
+    <div class="palette-swatch" style="background: #333333;">
+      <p class="swatch-name" style="color:#666;">#333333 — Soporte</p>
+    </div>
+    <div class="palette-swatch" style="background: #888888;">
+      <p class="swatch-name" style="color:#ccc;">Acento / Cápsula — Rota</p>
+    </div>
+  </div>
+
+  <p style="font-size: 12px; color: var(--gray-light); font-family: 'Space Mono', monospace; letter-spacing: 0.08em;">
+    * El color de acento rota con cada cápsula. Nunca se repite. Nunca es brillante — siempre apagado, industrial o terroso.
+  </p>
+
+  <h3>Tipografía</h3>
+
+  <table class="brand-table">
+    <thead>
+      <tr><th>Uso</th><th>Estilo</th><th>Criterio</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Headlines / Logo</td>
+        <td>Sans-serif condensado, industrial</td>
+        <td>Peso visual fuerte. Sin decoración.</td>
+      </tr>
+      <tr>
+        <td>Arte / Objetos</td>
+        <td>Serif clásico</td>
+        <td>Contraste con lo crudo del sans. Tensión.</td>
+      </tr>
+      <tr>
+        <td>Body / Web</td>
+        <td>Sans-serif neutro, legible</td>
+        <td>Nunca compita con el headline.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Fotografía</h3>
+
+  <table class="brand-table">
+    <thead>
+      <tr><th>Elemento</th><th>Regla</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Contexto</td><td>Calle, textura, materiales reales — nunca fondo de estudio convencional. Panamá visible.</td></tr>
+      <tr><td>Personas</td><td>Miembros reales de la comunidad. No modelos de casting genérico.</td></tr>
+      <tr><td>Luz</td><td>Dura y directa. Sombras pronunciadas. Alta contraste. Nunca luz suave difusa.</td></tr>
+      <tr><td>Color</td><td>Preferencia por blanco y negro o muy desaturado. Si hay color, es el de la prenda — no el ambiente.</td></tr>
+      <tr><td>Composición</td><td>Espacio generoso. El producto puede aparecer solo. Planos cerrados sobre detalle y textura.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Uso del Logo</h3>
+
+  <div class="audience-split">
+    <div class="audience-col">
+      <p class="audience-col-title">Permitido</p>
+      <ul class="audience-list">
+        <li>Negro sobre blanco</li>
+        <li>Blanco sobre negro</li>
+        <li>Color de acento de cápsula sobre negro o blanco</li>
+      </ul>
+    </div>
+    <div class="audience-col" style="background: #0a0a0a;">
+      <p class="audience-col-title">No permitido</p>
+      <ul class="audience-list">
+        <li>Distorsión de proporciones</li>
+        <li>Rotación</li>
+        <li>Sombras, brillos, efectos</li>
+        <li>Colores fuera de paleta</li>
+        <li>Sobre fotografías con ruido visual</li>
+      </ul>
+    </div>
+  </div>
+
+</section>
+</div>
+
+<!-- ══════════════════════════════════════════
+     09 — SISTEMA DE PRODUCTOS
+══════════════════════════════════════════ -->
+<div class="page">
+<section id="productos">
+  <div class="section-header">
+    <span class="section-number">09</span>
+    <h2 class="section-title">Sistema de<br>Productos</h2>
+  </div>
+
+  <p>CLOSE COMMUNITY opera con tres capas de producto. Cada una cumple un rol distinto en la estrategia de marca. El objetivo no es que todos compren. Es que <strong>todos se tienten.</strong></p>
+
+  <div class="layer-cards">
+
+    <div class="layer-card">
+      <div class="layer-num">01</div>
+      <div class="layer-content">
+        <p class="layer-title">Tienda Online Permanente</p>
+        <p class="layer-subtitle">CPFM Model — Siempre activa</p>
+        <p class="layer-desc">La web no es una tienda de drops con countdown. Es un espacio vivo — siempre hay algo disponible, algo nuevo rotando. Cualquiera puede entrar. No anunciamos lo que aparece. Los drops online existen, pero no son el evento. Las piezas aparecen cuando están listas. El sitio nunca está vacío. El sitio nunca está en silencio.</p>
+        <ul class="layer-rules">
+          <li>No hay countdown público para piezas online</li>
+          <li>Las piezas nuevas aparecen sin anuncio — simplemente están</li>
+          <li>Lo que se agota pasa a estado GONE — visible pero inaccesible</li>
+          <li>La web es el museo en construcción permanente de la marca</li>
+          <li>El objetivo: todos se tientan, pocos compran — esa tensión construye la marca</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="layer-card">
+      <div class="layer-num">02</div>
+      <div class="layer-content">
+        <p class="layer-title">Básicos</p>
+        <p class="layer-subtitle">Logo pieces — Restock permitido</p>
+        <p class="layer-desc">Piezas con el logotipo de CLOSE COMMUNITY. Diseño limpio. Uso diario. Hechas para ser portadas, vistas y reconocidas en la calle. Son la puerta de entrada — alguien ve el logo en Panamá, pregunta, entra al mundo. Los únicos items con restock. El diseño es consistente — no cambia radicalmente entre cápsulas.</p>
+        <ul class="layer-rules">
+          <li>Precio de entrada accesible dentro del rango de la marca</li>
+          <li>Pueden reabastecerse — son los únicos con restock</li>
+          <li>No se mezclan visualmente con las piezas de cápsula en el sitio</li>
+          <li>Su rol es masificar el logo en la ciudad</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="layer-card">
+      <div class="layer-num">03</div>
+      <div class="layer-content">
+        <p class="layer-title">Cargo Drop Físico</p>
+        <p class="layer-subtitle">Panamá — La pieza no viene a ti</p>
+        <p class="layer-desc">La pieza no viene a ti. Tú vas a la pieza. Se publica una imagen, coordenada o señal en redes — sin contexto, sin texto. La comunidad descifra la ubicación en Ciudad de Panamá. Quien llega, compra. Cuando se acaba, se acabó. No hay online backup. No hay segunda oportunidad.</p>
+        <ul class="layer-rules">
+          <li>La ubicación nunca se anuncia directamente — siempre codificada</li>
+          <li>No se vende más de una pieza por persona</li>
+          <li>No hay lista de espera ni reserva previa</li>
+          <li>Las piezas del cargo drop no llegan a la tienda online — nunca</li>
+          <li>Sin restock. Lo que no llegaste a buscar, lo perdiste</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <h3 style="margin-top: 56px;">El Concepto GONE</h3>
+
+  <p>Cuando una pieza se agota — en físico o en web — no desaparece del sitio. Se queda. Pero marcada como <strong>GONE.</strong> El archivo visible es parte de la narrativa. Ver lo que ya no puedes tener genera más deseo que no verlo.</p>
+
+  <div class="gone-demo">
+    <div class="gone-demo-header">Vista de Tienda — Simulación</div>
+    <div class="gone-demo-row">
+      <div class="gone-item-name">CAPSULE 001 — HOODIE</div>
+      <div class="gone-item-price" style="color:#ccc;">$95.00</div>
+      <div class="gone-badge active">AVAILABLE</div>
+    </div>
+    <div class="gone-demo-row" style="opacity: 0.5;">
+      <div class="gone-item-name">CAPSULE 001 — LONG SLEEVE</div>
+      <div class="gone-item-price" style="color: var(--gray-light);">—</div>
+      <div class="gone-badge gone">GONE</div>
+    </div>
+    <div class="gone-demo-row" style="opacity: 0.5;">
+      <div class="gone-item-name">CARGO DROP I — JACKET</div>
+      <div class="gone-item-price" style="color: var(--gray-light);">—</div>
+      <div class="gone-badge gone">GONE</div>
+    </div>
+    <div class="gone-demo-row">
+      <div class="gone-item-name">BASICS — LOGO TEE</div>
+      <div class="gone-item-price" style="color:#ccc;">$55.00</div>
+      <div class="gone-badge active">AVAILABLE</div>
+    </div>
+  </div>
+
+  <h3>Estructura de Comunicación — Cargo Drop</h3>
+
+  <div class="drop-timeline">
+    <div class="drop-timeline-row">
+      <span class="drop-time">SEMANAS ANTES</span>
+      <span class="drop-event">SILENCIO</span>
+    </div>
+    <div class="drop-timeline-row">
+      <span class="drop-time">DÍAS ANTES</span>
+      <span class="drop-event">SEÑAL SIN CONTEXTO — imagen, coordenada, símbolo en redes</span>
+    </div>
+    <div class="drop-timeline-row">
+      <span class="drop-time">NADA MÁS</span>
+      <span class="drop-event">La comunidad trabaja. La marca no aclara nada.</span>
+    </div>
+    <div class="drop-timeline-row">
+      <span class="drop-time">HORA CERO</span>
+      <span class="drop-event">UBICACIÓN ACTIVA — quien llega, compra</span>
+    </div>
+    <div class="drop-timeline-row">
+      <span class="drop-time">AGOTADO</span>
+      <span class="drop-event">GONE.</span>
+    </div>
+    <div class="drop-timeline-row">
+      <span class="drop-time">24H DESPUÉS</span>
+      <span class="drop-event">ARCHIVO — documentado en el sitio para siempre</span>
+    </div>
+  </div>
+
+</section>
+</div>
+
+<!-- ══════════════════════════════════════════
+     10 — REGLAS DE COMUNIDAD
+══════════════════════════════════════════ -->
+<div class="page">
+<section id="comunidad">
+  <div class="section-header">
+    <span class="section-number">10</span>
+    <h2 class="section-title">Reglas de<br>Comunidad</h2>
+  </div>
+
+  <p>La comunidad no se gestiona. Se cultiva. No hay reglas escritas para los miembros — hay comportamientos que se reconocen.</p>
+
+  <div class="value-item" style="border-top: 1px solid var(--gray-mid);">
+    <div class="value-name">Lo que define a alguien de la comunidad</div>
+    <div class="value-desc">
+      <ul class="audience-list" style="margin-top: 0;">
+        <li>Tiene una pieza real — no fake, no regalada por influencer deal</li>
+        <li>La porta porque quiere, no para que lo vean haciéndolo</li>
+        <li>Tiene el gusto y el courage para vestir algo que no todo el mundo entiende</li>
+        <li>Comparte la señal del cargo drop con quien cree que merece saber — no con todo el mundo</li>
+        <li>No pide explicaciones de la marca ni espera respuestas en redes</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="value-item">
+    <div class="value-name">El rol de la comunidad en los drops</div>
+    <div class="value-desc">La comunidad comparte la señal con quienes saben que merecen saber. Nadie obliga, nadie coordina. Pasa naturalmente entre personas que se reconocen. <strong>La comunidad ES el canal de distribución de información.</strong></div>
+  </div>
+
+  <div class="value-item">
+    <div class="value-name">Lo que nunca hace la marca</div>
+    <div class="value-desc">
+      <ul class="audience-list" style="margin-top: 0;">
+        <li>Pedir que "compartan para ganar"</li>
+        <li>Hacer giveaways masivos</li>
+        <li>Darle trato especial a influencers que no llegaron solos</li>
+        <li>Crear grupos de WhatsApp o listas VIP</li>
+        <li>Anunciar drops en todos los canales simultáneamente</li>
+        <li>Dar segunda oportunidad al que no llegó</li>
+      </ul>
+    </div>
+  </div>
+
+</section>
+</div>
+
+<!-- ══════════════════════════════════════════
+     11 — SOMOS / NO SOMOS
+══════════════════════════════════════════ -->
+<div class="page">
+<section id="somos">
+  <div class="section-header">
+    <span class="section-number">11</span>
+    <h2 class="section-title">Somos /<br>No Somos</h2>
+  </div>
+
+  <table class="brand-table">
+    <thead>
+      <tr><th>SOMOS</th><th>NO SOMOS</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Para cualquiera con el gusto y el courage de portarlo</td>
+        <td>Cerrados por dinero, invitación o sistema de acceso</td>
+      </tr>
+      <tr>
+        <td>El diseño y el precio son el filtro natural</td>
+        <td>Elitistas artificiales</td>
+      </tr>
+      <tr>
+        <td>Arte en producto — cada pieza dice algo</td>
+        <td>Moda de temporada sin argumento</td>
+      </tr>
+      <tr>
+        <td>Comunidad que se activa en la calle</td>
+        <td>Audiencia pasiva de redes sociales</td>
+      </tr>
+      <tr>
+        <td>Silencio estratégico — publicar menos, pesar más</td>
+        <td>Marca callada por falta de contenido</td>
+      </tr>
+      <tr>
+        <td>Raíces en Panamá — el 3% que nadie más tiene</td>
+        <td>Limitados a Panamá como mercado</td>
+      </tr>
+      <tr>
+        <td>Una tienda que siempre tienta, aunque no todos compren</td>
+        <td>Ventas masivas sin personalidad</td>
+      </tr>
+      <tr>
+        <td>Drops que crean eventos reales en la ciudad</td>
+        <td>Hype fabricado desde las redes</td>
+      </tr>
+      <tr>
+        <td>Marca que se gana el respeto por lo que produce</td>
+        <td>Marca que busca likes</td>
+      </tr>
+    </tbody>
+  </table>
+
+</section>
+</div>
+
+<!-- ══════════════════════════════════════════
+     12 — LAS 7 REGLAS
+══════════════════════════════════════════ -->
+<div class="page">
+<section id="reglas">
+  <div class="section-header">
+    <span class="section-number">12</span>
+    <h2 class="section-title">Las 7 Reglas<br>para Pensar</h2>
+  </div>
+
+  <span class="tag virgil-tag">Virgil Abloh — Applied to CLOSE COMMUNITY</span>
+  <p style="margin-top: 16px;">Estas son las instrucciones de operación mental. No son reglas de diseño — son reglas de cómo tomar cada decisión sobre la marca.</p>
+
+  <ol class="rules-list">
+
+    <li class="rule-item">
+      <span class="rule-num"></span>
+      <div class="rule-content">
+        <p class="rule-title">Nunca preguntes "¿qué hago?" — pregunta "¿qué ya existe que pueda intervenir?"</p>
+        <p class="rule-desc">El punto de partida siempre es algo real. Una calle de Panamá es una fuente. Un ritual de la ciudad es una fuente. Una referencia cultural que ya existe es una fuente. Tu trabajo es el 3% de intervención sobre eso.</p>
+      </div>
+    </li>
+
+    <li class="rule-item">
+      <span class="rule-num"></span>
+      <div class="rule-content">
+        <p class="rule-title">Mantente turista deliberadamente</p>
+        <p class="rule-desc">Cuando empieces a sentirte demasiado "dentro" del streetwear, del arte, de la música — busca el campo de al lado y entra. Trae esa perspectiva de vuelta a la marca. El punto ciego del experto es tu ventaja como turista.</p>
+      </div>
+    </li>
+
+    <li class="rule-item">
+      <span class="rule-num"></span>
+      <div class="rule-content">
+        <p class="rule-title">Nombra todo</p>
+        <p class="rule-desc">Cada pieza. Cada cápsula. Cada drop. Cada evento. El nombre es el 50% del objeto — Virgil lo sabía. "CLOSE COMMUNITY" ya funciona como nombre. Ahora cada cápsula necesita el mismo nivel de intención. El nombre es el primer acto de diseño.</p>
+      </div>
+    </li>
+
+    <li class="rule-item">
+      <span class="rule-num"></span>
+      <div class="rule-content">
+        <p class="rule-title">Curate más de lo que produces</p>
+        <p class="rule-desc">La selección es el acto creativo. Qué muestras, qué no muestras, qué guardas para después — eso define la marca más que lo que fabricas. El editor es más importante que el productor. La marca que publica todo pierde todo.</p>
+      </div>
+    </li>
+
+    <li class="rule-item">
+      <span class="rule-num"></span>
+      <div class="rule-content">
+        <p class="rule-title">Comparte el conocimiento — Free Game</p>
+        <p class="rule-desc">Una marca que enseña algo se vuelve una comunidad. Una marca que solo vende se vuelve una tienda. Mostrar el proceso — cómo se hace un drop, cómo se elige una pieza, por qué se eligió una ubicación — no destruye el misterio. Lo profundiza.</p>
+      </div>
+    </li>
+
+    <li class="rule-item">
+      <span class="rule-num"></span>
+      <div class="rule-content">
+        <p class="rule-title">Lanza imperfecto</p>
+        <p class="rule-desc">"Getting the ball rolling requires putting out some bad work first." La primera cápsula no será la mejor. Eso está bien. Lo que importa es que exista en el mundo. La marca no existe hasta que existe. Imperfecta y viva es mejor que perfecta y en la cabeza.</p>
+      </div>
+    </li>
+
+    <li class="rule-item">
+      <span class="rule-num"></span>
+      <div class="rule-content">
+        <p class="rule-title">Pregúntate siempre: "¿Qué estoy poniendo entre comillas?"</p>
+        <p class="rule-desc">Cada pieza, cada comunicación, cada drop — ¿qué idea estás cuestionando o reencuadrando? Si no hay respuesta, no está listo todavía. "U WILL WANT TO BELONG" pone entre comillas el deseo de pertenecer. Cada cápsula debe tener su propia pregunta.</p>
+      </div>
+    </li>
+
+  </ol>
+
+</section>
+</div>
+
+<!-- ══════════════════════════════════════════
+     13 — VOCABULARIO
+══════════════════════════════════════════ -->
+<div class="page">
+<section id="palabras">
+  <div class="section-header">
+    <span class="section-number">13</span>
+    <h2 class="section-title">Vocabulario</h2>
+  </div>
+
+  <p>Las palabras construyen la marca tanto como el diseño. Hay palabras que pertenecen al universo de CLOSE COMMUNITY — y palabras que lo destruyen.</p>
+
+  <div class="words-split">
+    <div class="words-col">
+      <p class="words-col-title">Usamos</p>
+      <ul class="words-list">
+        <li>Drop / Release</li>
+        <li>Gone / Archived</li>
+        <li>Belong / Community</li>
+        <li>Capsule / Object / Piece</li>
+        <li>Members / Circle</li>
+        <li>Cargo / Location</li>
+        <li>Signal / Coordinates</li>
+        <li>Courage</li>
+        <li>Live.</li>
+      </ul>
+    </div>
+    <div class="words-col" style="background: #0a0a0a;">
+      <p class="words-col-title">No usamos</p>
+      <ul class="words-list no">
+        <li>Colección de temporada</li>
+        <li>Descuento / Sale / Oferta</li>
+        <li>Clientes / Fans / Seguidores</li>
+        <li>Disponible / En stock</li>
+        <li>¡Nuevo! / ¡Ya está aquí!</li>
+        <li>Comunidad inclusiva</li>
+        <li>Edición especial</li>
+        <li>Precio especial</li>
+      </ul>
+    </div>
+  </div>
+
+</section>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-brand">Close Community</div>
+  <div class="footer-meta">
+    <p>Brand Bible — V2</p>
+    <p>Ciudad de Panamá — 2026</p>
+    <p>Documento interno.</p>
+    <p>Filosofía: Virgil Abloh — Free Game</p>
+    <p style="margin-top: 12px; color: #333;">"U WILL WANT TO BELONG."</p>
+  </div>
+</footer>
+
+</body>
+</html>
