@@ -34,20 +34,23 @@
     /* ── CURSOR ── */
     .c-dot {
       position: fixed; top: 0; left: 0;
-      width: 5px; height: 5px;
-      background: var(--ink); border-radius: 50%;
+      width: 22px; height: 22px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; line-height: 1; color: #fff;
       pointer-events: none; z-index: 9999;
       will-change: transform; mix-blend-mode: difference;
+      user-select: none;
     }
+    .c-dot::before { content: '✦'; }
     .c-ring {
       position: fixed; top: 0; left: 0;
-      width: 32px; height: 32px;
+      width: 38px; height: 38px;
       border: 1px solid rgba(0,0,0,.22); border-radius: 50%;
       pointer-events: none; z-index: 9998;
-      will-change: transform;
+      will-change: transform; mix-blend-mode: difference;
       transition: width .18s, height .18s, border-color .18s;
     }
-    .c-ring.hov { width: 48px; height: 48px; border-color: rgba(0,0,0,.45); }
+    .c-ring.hov { width: 54px; height: 54px; border-color: rgba(0,0,0,.45); }
 
     /* ── TICKER ── */
     .ticker {
@@ -77,7 +80,7 @@
       border-bottom: 1px solid var(--rule);
     }
     .tb-back {
-      font-family: var(--mono); font-size: 8px; letter-spacing: .2em;
+      font-family: var(--mono); font-size: 10px; letter-spacing: .2em;
       text-transform: uppercase; color: var(--dim);
       text-decoration: none; cursor: none;
       transition: color .2s;
@@ -313,8 +316,8 @@ let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove', e=>{mx=e.clientX;my=e.clientY;});
 (function loop(){
   rx+=(mx-rx)*.1; ry+=(my-ry)*.1;
-  dot.style.transform=`translate(${mx-2.5}px,${my-2.5}px)`;
-  ring.style.transform=`translate(${rx-16}px,${ry-16}px)`;
+  dot.style.transform=`translate(${mx-11}px,${my-11}px)`;
+  ring.style.transform=`translate(${rx-19}px,${ry-19}px)`;
   requestAnimationFrame(loop);
 })();
 document.querySelectorAll('button,a').forEach(el=>{

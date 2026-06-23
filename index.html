@@ -40,24 +40,35 @@
     ═══════════════════════════════════════ */
     .c-dot {
       position: fixed; top: 0; left: 0;
-      width: 5px; height: 5px;
-      background: var(--white);
-      border-radius: 50%;
+      width: 22px; height: 22px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; line-height: 1;
+      color: #fff;
       pointer-events: none; z-index: 99999;
       will-change: transform;
       mix-blend-mode: difference;
+      user-select: none;
+      transition: transform .1s ease;
+    }
+    .c-dot::before { content: '✦'; }
+    .c-dot.spin::before { animation: starSpin .4s ease; }
+    @keyframes starSpin {
+      from { transform: rotate(0deg) scale(1); }
+      50%  { transform: rotate(180deg) scale(1.4); }
+      to   { transform: rotate(360deg) scale(1); }
     }
     .c-ring {
       position: fixed; top: 0; left: 0;
-      width: 32px; height: 32px;
-      border: 1px solid rgba(0,0,0,.25);
+      width: 38px; height: 38px;
+      border: 1px solid rgba(255,255,255,.35);
       border-radius: 50%;
       pointer-events: none; z-index: 99998;
       will-change: transform;
       transition: width .2s, height .2s, border-color .2s;
+      mix-blend-mode: difference;
     }
-    .c-ring.hov { width: 48px; height: 48px; border-color: rgba(0,0,0,.5); }
-    .c-ring.gon { width: 56px; height: 56px; border-color: var(--dim); }
+    .c-ring.hov { width: 54px; height: 54px; border-color: rgba(255,255,255,.6); }
+    .c-ring.gon { width: 62px; height: 62px; border-color: rgba(255,255,255,.4); }
 
     /* ═══════════════════════════════════════
        GRAIN
@@ -148,9 +159,10 @@
     .join-modal.open .join-box { transform: translateY(0); opacity: 1; }
 
     .join-close {
-      position: absolute; top: 20px; right: 22px;
+      position: absolute; top: 18px; right: 20px;
       background: none; border: none; color: #555;
-      font-family: var(--mono); font-size: 14px; cursor: none;
+      font-family: var(--mono); font-size: 18px; cursor: none;
+      padding: 6px;
       transition: color .2s;
     }
     .join-close:hover { color: #fff; }
@@ -164,7 +176,14 @@
     .join-sub {
       font-family: var(--mono); font-size: 8px;
       letter-spacing: .2em; text-transform: uppercase;
-      color: #666; margin-bottom: 36px; line-height: 2;
+      color: #666; margin-bottom: 12px; line-height: 2;
+    }
+    .join-offer {
+      font-family: var(--mono); font-size: 9px; font-weight: 700;
+      letter-spacing: .16em; text-transform: uppercase;
+      color: #fff; margin-bottom: 28px;
+      border: 1px solid #333; padding: 9px 14px;
+      display: inline-block;
     }
     .join-form { display: flex; flex-direction: column; gap: 10px; }
     .join-input {
@@ -186,6 +205,15 @@
     }
     .join-submit:hover { background: #ddd; }
     .join-submit:disabled { background: #333; color: #666; }
+
+    .join-skip {
+      background: none; border: none; color: #444;
+      font-family: var(--mono); font-size: 8px; letter-spacing: .18em;
+      text-transform: uppercase; cursor: none;
+      text-decoration: underline; text-underline-offset: 3px;
+      margin-top: 4px; transition: color .2s;
+    }
+    .join-skip:hover { color: #888; }
 
     .join-done {
       display: none;
@@ -639,7 +667,7 @@
       display: flex; justify-content: space-between; align-items: center;
     }
     .cd-title { font-family: var(--mono); font-size: 8px; letter-spacing: .22em; text-transform: uppercase; }
-    .cd-close { background: none; border: none; color: var(--dim); cursor: none; font-family: var(--mono); font-size: 10px; transition: color .2s; }
+    .cd-close { background: none; border: none; color: var(--dim); cursor: none; font-family: var(--mono); font-size: 13px; padding: 4px; transition: color .2s; }
     .cd-close:hover { color: var(--white); }
     .cd-body { flex: 1; overflow-y: auto; padding: 18px 22px; }
     .cd-empty { height: 100%; display: flex; align-items: center; justify-content: center; }
@@ -735,11 +763,13 @@
   <div class="join-box">
     <button class="join-close" id="joinClose">✕</button>
     <div class="join-title">U Will Want<br>To Belong.</div>
-    <p class="join-sub">Drop your email.<br>We'll let you know when it drops.</p>
+    <p class="join-sub">Drop your email. We'll let you know when it drops.</p>
+    <span class="join-offer">✦ 10% off your first order</span>
     <form class="join-form" id="joinForm">
       <input class="join-input" type="email" id="joinEmail"
              placeholder="your@email.com" required autocomplete="email"/>
       <button class="join-submit" type="submit" id="joinSubmit">Belong →</button>
+      <button class="join-skip" type="button" id="joinSkip">Skip for now</button>
     </form>
     <div class="join-done" id="joinDone">You're in.<br>Check your email.</div>
     <p class="join-legal">No spam. Only drops, signals, and early access.</p>
@@ -1048,8 +1078,8 @@ let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
 (function loop(){
   rx += (mx-rx)*.1; ry += (my-ry)*.1;
-  dot.style.transform  = `translate(${mx-2.5}px,${my-2.5}px)`;
-  ring.style.transform = `translate(${rx-16}px,${ry-16}px)`;
+  dot.style.transform  = `translate(${mx-11}px,${my-11}px)`;
+  ring.style.transform = `translate(${rx-19}px,${ry-19}px)`;
   requestAnimationFrame(loop);
 })();
 document.querySelectorAll('button,a').forEach(el=>{
@@ -1082,8 +1112,14 @@ document.getElementById('lobbyMenu').addEventListener('click', () => {
   exitLobby(() => openMenu());
 });
 // Buy button: open email capture modal (stays on lobby)
+// — but skip if user dismissed less than 15 min ago
 document.getElementById('lobbyBuy').addEventListener('click', () => {
-  openJoin();
+  const skipUntil = localStorage.getItem('cc_skip_until');
+  if(skipUntil && Date.now() < parseInt(skipUntil)){
+    exitLobby(); // just enter the site
+  } else {
+    openJoin();
+  }
 });
 
 /* ── JOIN MODAL ── */
@@ -1100,8 +1136,20 @@ function closeJoin() {
   joinOv.classList.remove('open');
   joinModal.classList.remove('open');
 }
-document.getElementById('joinClose').addEventListener('click', closeJoin);
-joinOv.addEventListener('click', closeJoin);
+function skipJoin() {
+  // Store skip timestamp — popup comes back in 15 min
+  localStorage.setItem('cc_skip_until', Date.now() + 15 * 60 * 1000);
+  closeJoin();
+  exitLobby();
+  // Schedule repopup after 15 min while user is on the page
+  setTimeout(() => {
+    if(!localStorage.getItem('cc_joined')) openJoin();
+  }, 15 * 60 * 1000);
+}
+
+document.getElementById('joinClose').addEventListener('click', skipJoin);
+document.getElementById('joinSkip').addEventListener('click', skipJoin);
+joinOv.addEventListener('click', skipJoin);
 
 joinForm.addEventListener('submit', async e => {
   e.preventDefault();
@@ -1130,19 +1178,16 @@ joinForm.addEventListener('submit', async e => {
       reply_to:  'blanc.creativos@gmail.com',
     }, PUBLIC_KEY);
 
+    localStorage.setItem('cc_joined', '1');
     joinForm.classList.add('hide');
     joinDone.classList.add('show');
-    // After 3s close modal and exit lobby
-    setTimeout(() => {
-      closeJoin();
-      exitLobby();
-    }, 3000);
+    setTimeout(() => { closeJoin(); exitLobby(); }, 3000);
 
   } catch(err) {
     btn.disabled    = false;
     btn.textContent = 'Belong →';
-    // If EmailJS not configured yet, still show success state
     if (SERVICE_ID === 'YOUR_SERVICE_ID') {
+      localStorage.setItem('cc_joined', '1');
       joinForm.classList.add('hide');
       joinDone.classList.add('show');
       setTimeout(() => { closeJoin(); exitLobby(); }, 3000);
