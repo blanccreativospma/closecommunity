@@ -231,6 +231,76 @@
       color: #444; line-height: 2;
     }
 
+    /* ── COLLECTIONS PANEL ── */
+    .col-ov {
+      position: fixed; inset: 0; z-index: 970;
+      background: rgba(0,0,0,.45);
+      backdrop-filter: blur(4px);
+      opacity: 0; pointer-events: none;
+      transition: opacity .3s ease;
+    }
+    .col-ov.open { opacity: 1; pointer-events: all; }
+
+    .col-panel {
+      position: fixed; top: 0; left: 0; bottom: 0;
+      width: min(320px, 88vw);
+      z-index: 971;
+      background: var(--black);
+      border-right: 1px solid var(--rule);
+      transform: translateX(-100%);
+      transition: transform .35s cubic-bezier(.25,.46,.45,.94);
+      display: flex; flex-direction: column;
+      padding: 48px 32px 40px;
+      overflow-y: auto;
+    }
+    .col-panel.open { transform: translateX(0); }
+
+    .col-head {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 32px;
+    }
+    .col-title {
+      font-family: var(--mono); font-size: 8px; font-weight: 700;
+      letter-spacing: .3em; text-transform: uppercase; color: var(--white);
+    }
+    .col-close {
+      background: none; border: none; cursor: none;
+      font-family: var(--mono); font-size: 14px; color: var(--dim);
+      padding: 4px; transition: color .2s;
+    }
+    .col-close:hover { color: var(--white); }
+
+    .col-list { display: flex; flex-direction: column; gap: 0; }
+
+    .col-item {
+      border-top: 1px solid var(--rule);
+      padding: 20px 0;
+    }
+    .col-item:last-child { border-bottom: 1px solid var(--rule); }
+
+    .col-item-name {
+      font-family: 'Abril Fatface', serif;
+      font-size: clamp(18px, 2.8vw, 22px);
+      color: var(--white); text-decoration: none;
+      display: block; margin-bottom: 4px;
+      transition: color .15s;
+    }
+    .col-item-name:hover { color: var(--dim); }
+    .col-item-name.soon { color: var(--muted); pointer-events: none; }
+
+    .col-item-meta {
+      font-family: var(--mono); font-size: 7px;
+      letter-spacing: .2em; text-transform: uppercase; color: var(--muted);
+    }
+    .col-item-tag {
+      display: inline-block;
+      font-family: var(--mono); font-size: 7px;
+      letter-spacing: .16em; text-transform: uppercase;
+      border: 1px solid var(--muted); color: var(--muted);
+      padding: 2px 6px; margin-top: 6px;
+    }
+    .col-item-tag.live { border-color: var(--white); color: var(--white); }
+
     /* ── SIZE SHAKE ── */
     @keyframes szShake {
       0%,100% { transform: translateX(0); }
@@ -776,6 +846,44 @@
   </div>
 </div>
 
+<!-- ═══════════════════════════════════
+     COLLECTIONS PANEL
+═══════════════════════════════════ -->
+<div class="col-ov" id="colOv"></div>
+<div class="col-panel" id="colPanel">
+  <div class="col-head">
+    <span class="col-title">Collections</span>
+    <button class="col-close" id="colClose">✕</button>
+  </div>
+  <div class="col-list">
+
+    <div class="col-item">
+      <a href="#catalog" class="col-item-name" onclick="closeCollections()">Capsule I</a>
+      <div class="col-item-meta">Angel Down · Backside Font · Stars · Basic · CC Socks</div>
+      <span class="col-item-tag live">Live Now</span>
+    </div>
+
+    <div class="col-item">
+      <span class="col-item-name soon">Random Drop</span>
+      <div class="col-item-meta">Objects & limited pieces — Domino Set, etc.</div>
+      <span class="col-item-tag">Coming Soon</span>
+    </div>
+
+    <div class="col-item">
+      <span class="col-item-name soon">Capsule II</span>
+      <div class="col-item-meta">TBA</div>
+      <span class="col-item-tag">Coming Soon</span>
+    </div>
+
+    <div class="col-item">
+      <span class="col-item-name soon">Cargo Drop</span>
+      <div class="col-item-meta">Physical only. No online backup.</div>
+      <span class="col-item-tag">TBA</span>
+    </div>
+
+  </div>
+</div>
+
 <!-- TICKER -->
 <div class="ticker" aria-hidden="true">
   <div class="ticker-t" id="tickerT">
@@ -797,12 +905,12 @@
 <!-- MENU OVERLAY -->
 <div class="menu-overlay" id="menuOverlay">
   <nav class="menu-links">
-    <a href="#shop"        class="menu-link" onclick="closeMenu()">Shop</a>
-    <a href="#collections" class="menu-link" onclick="closeMenu()">Collections</a>
-    <a href="#random"      class="menu-link" onclick="closeMenu()" id="randomLink">Random</a>
-    <a href="#archive"     class="menu-link" onclick="closeMenu()">Archive</a>
-    <a href="#contact"     class="menu-link" onclick="closeMenu()">Contact</a>
-    <a href="minesweeper.html" class="menu-link">Play</a>
+    <a href="#catalog"    class="menu-link" onclick="closeMenu()">Shop</a>
+    <a href="#"           class="menu-link" id="collectionsLink">Collections</a>
+    <a href="random.html" class="menu-link" onclick="closeMenu()">Random</a>
+    <a href="archive.html" class="menu-link" onclick="closeMenu()">Archive</a>
+    <a href="#contact"    class="menu-link" onclick="closeMenu()">Contact</a>
+    <a href="play.html"   class="menu-link" onclick="closeMenu()">Play</a>
   </nav>
   <div class="menu-foot">
     <span class="menu-foot-brand">Close Community</span>
@@ -871,7 +979,7 @@
   </section>
 
   <!-- PRODUCTS LABEL -->
-  <div class="sm rv">
+  <div class="sm rv" id="catalog">
     <span class="sm-l">Capsule I — Live</span>
     <span class="sm-r">6 Pieces</span>
   </div>
@@ -1172,10 +1280,12 @@ joinForm.addEventListener('submit', async e => {
     const PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';
 
     await emailjs.send(SERVICE_ID, TEMPLATE_ID, {
-      to_email: email,
-      to_name:  email.split('@')[0],
-      from_name: 'Close Community',
-      reply_to:  'blanc.creativos@gmail.com',
+      to_email:     email,
+      to_name:      email.split('@')[0],
+      from_name:    'Close Community',
+      reply_to:     'blanc.creativos@gmail.com',
+      discount_code:'CC10FIRST',
+      confirm_link: 'https://blanccreativospma.github.io/closecommunity/?welcome=1',
     }, PUBLIC_KEY);
 
     localStorage.setItem('cc_joined', '1');
@@ -1217,16 +1327,27 @@ menuBtn.addEventListener('click', () => {
 // Close on Escape
 document.addEventListener('keydown', e => { if(e.key==='Escape') closeMenu(); });
 
-// Random — scroll to random product
-document.getElementById('randomLink').addEventListener('click', e => {
-  e.preventDefault(); closeMenu();
-  const cards = document.querySelectorAll('.pc:not(.gone)');
-  if(!cards.length) return;
-  const pick = cards[Math.floor(Math.random()*cards.length)];
-  pick.scrollIntoView({behavior:'smooth', block:'center'});
-  pick.style.outline = '1px solid #999';
-  setTimeout(()=>pick.style.outline='', 1200);
+/* ── COLLECTIONS PANEL ── */
+const colOv    = document.getElementById('colOv');
+const colPanel = document.getElementById('colPanel');
+
+function openCollections() {
+  closeMenu();
+  colOv.classList.add('open');
+  colPanel.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeCollections() {
+  colOv.classList.remove('open');
+  colPanel.classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('collectionsLink').addEventListener('click', e => {
+  e.preventDefault(); openCollections();
 });
+document.getElementById('colClose').addEventListener('click', closeCollections);
+colOv.addEventListener('click', closeCollections);
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeCollections(); });
 
 /* ── NAV scroll ── */
 const navEl = document.getElementById('nav');
@@ -1311,6 +1432,11 @@ function toast(msg){
 /* ── TICKER loop ── */
 const tk = document.getElementById('tickerT');
 tk.innerHTML += tk.innerHTML;
+
+/* ── SERVICE WORKER ── */
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw.js').catch(()=>{});
+}
 </script>
 </body>
 </html>
