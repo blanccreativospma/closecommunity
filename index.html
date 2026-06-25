@@ -544,6 +544,42 @@
     }
     .pc:not(.gone):hover .pc-img img { transform: scale(1.055); }
 
+    /* ── FLIP CARD (Front/Back hover) ── */
+    .pc-img.flip { perspective: 1200px; overflow: visible; }
+    .pc-img.flip .flip-inner {
+      width: 100%; height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform .75s cubic-bezier(.25,.46,.45,.94);
+    }
+    .pc:not(.gone):hover .pc-img.flip .flip-inner { transform: rotateY(180deg); }
+    .pc-img.flip .flip-front,
+    .pc-img.flip .flip-back {
+      position: absolute; inset: 0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      background: #f2f2f0;
+    }
+    .pc-img.flip .flip-front img,
+    .pc-img.flip .flip-back img {
+      width: 100%; height: 100%;
+      object-fit: contain; display: block;
+      transition: none;
+    }
+    .pc-img.flip .flip-back { transform: rotateY(180deg); }
+    /* Override default scale on flip cards */
+    .pc:not(.gone):hover .pc-img.flip img { transform: none; }
+
+    /* Flip hint badge */
+    .flip-hint {
+      position: absolute; bottom: 8px; right: 10px; z-index: 3;
+      font-family: var(--mono); font-size: 7px; letter-spacing: .16em;
+      text-transform: uppercase; color: var(--dim);
+      opacity: 0; transition: opacity .3s ease;
+      pointer-events: none;
+    }
+    .pc:hover .flip-hint { opacity: 1; }
+
     /* Gone veil */
     .gv {
       position: absolute; inset: 0; z-index: 2;
@@ -1007,8 +1043,16 @@
     </div>
 
     <div class="pc rv d2">
-      <div class="pc-img">
-        <img src="TRANSPARENT_MOCKUPS/CAPSULA%2001/BACKSIDEFONTTEE.png" alt="Backside Font Tee" loading="lazy"/>
+      <div class="pc-img flip">
+        <div class="flip-inner">
+          <div class="flip-front">
+            <img src="TRANSPARENT_MOCKUPS/CAPSULA%2001/FONT_TEE/FRONT_SIDE_FONT_TEE.png" alt="Backside Font Tee — Front" loading="lazy"/>
+          </div>
+          <div class="flip-back">
+            <img src="TRANSPARENT_MOCKUPS/CAPSULA%2001/FONT_TEE/BACK_SIDE_FONT_TEE.png" alt="Backside Font Tee — Back" loading="lazy"/>
+          </div>
+        </div>
+        <span class="flip-hint">hover to flip</span>
       </div>
       <div class="pc-info">
         <div class="pc-row">
@@ -1021,7 +1065,7 @@
           <button class="sz" onclick="selSz(this)">L</button>
           <button class="sz" onclick="selSz(this)">XL</button>
         </div>
-        <button class="add" onclick="addCart(this,'Backside Font Tee',65,'TRANSPARENT_MOCKUPS/CAPSULA%2001/BACKSIDEFONTTEE.png')">Add to Cart</button>
+        <button class="add" onclick="addCart(this,'Backside Font Tee',65,'TRANSPARENT_MOCKUPS/CAPSULA%2001/FONT_TEE/FRONT_SIDE_FONT_TEE.png')">Add to Cart</button>
       </div>
     </div>
 
