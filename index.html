@@ -3,9 +3,35 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>CLOSE COMMUNITY</title>
+  <title>Close Community — U Will Want To Belong</title>
+  <meta name="description" content="Close Community — underground streetwear from Ciudad de Panamá. Limited capsules, permanent basics, and physical Cargo Drops. All sales final."/>
+  <meta name="theme-color" content="#0f0f0f"/>
+  <link rel="canonical" href="https://blanccreativospma.github.io/closecommunity/"/>
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="Close Community"/>
+  <meta property="og:title" content="Close Community — U Will Want To Belong"/>
+  <meta property="og:description" content="Underground streetwear from Ciudad de Panamá. Limited capsules, permanent basics, and physical Cargo Drops."/>
+  <meta property="og:url" content="https://blanccreativospma.github.io/closecommunity/"/>
+  <meta property="og:image" content="https://blanccreativospma.github.io/closecommunity/favicon-512.png"/>
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:title" content="Close Community — U Will Want To Belong"/>
+  <meta name="twitter:description" content="Underground streetwear from Ciudad de Panamá. Limited capsules, permanent basics, and physical Cargo Drops."/>
+  <meta name="twitter:image" content="https://blanccreativospma.github.io/closecommunity/favicon-512.png"/>
+
+  <!-- Favicon -->
+  <link rel="icon" href="favicon.ico" sizes="any"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"/>
+  <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon-180.png"/>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Abril+Fatface&display=swap" rel="stylesheet"/>
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
   <style>
 
     /* ═══════════════════════════════════════
@@ -48,7 +74,6 @@
       will-change: transform;
       mix-blend-mode: difference;
       user-select: none;
-      transition: transform .1s ease;
     }
     .c-dot::before { content: '✦'; }
     .c-dot.spin::before { animation: starSpin .4s ease; }
@@ -744,6 +769,21 @@
     }
 
     /* ═══════════════════════════════════════
+       CONTACT
+    ═══════════════════════════════════════ */
+    .contact {
+      display: flex; flex-wrap: wrap; gap: 16px 48px;
+      padding: 48px 40px 60px;
+    }
+    .contact-link {
+      font-family: var(--sans); font-size: clamp(16px,2vw,22px); font-weight: 500;
+      color: var(--white); text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color .2s, opacity .2s;
+    }
+    .contact-link:hover { border-color: var(--white); opacity: .65; }
+
+    /* ═══════════════════════════════════════
        CART DRAWER
     ═══════════════════════════════════════ */
     .cv {
@@ -813,7 +853,7 @@
       .grid   { grid-template-columns: repeat(2,1fr); gap: 52px 32px; padding: 48px 28px 80px; }
       .cargo  { grid-template-columns: 1fr; }
       .cargo-l{ border-right: none; border-bottom: 1px solid var(--rule); }
-      .sm, .arc, footer { padding-left: 28px; padding-right: 28px; }
+      .sm, .arc, .contact, footer { padding-left: 28px; padding-right: 28px; }
       .hero   { padding: 100px 28px 64px; }
     }
     @media (max-width: 560px) {
@@ -823,7 +863,7 @@
       .hero   { padding: 88px 20px 52px; }
       .cargo-l{ padding: 48px 20px; }
       .cargo-r{ min-height: 180px; }
-      .sm, .arc, footer { padding-left: 20px; padding-right: 20px; }
+      .sm, .arc, .contact, footer { padding-left: 20px; padding-right: 20px; }
       footer  { flex-direction: column; gap: 20px; align-items: flex-start; }
       .f-r    { text-align: left; }
       .lobby-logo { width: min(340px, 82vw); }
@@ -847,7 +887,10 @@
      LOBBY — Raf Simons entrance
 ═══════════════════════════════════ -->
 <div class="lobby" id="lobby">
-  <img class="lobby-logo" src="logos/TYPO_LOGO.png" alt="Close Community"/>
+  <picture>
+    <source srcset="logos/web/TYPO_LOGO.webp" type="image/webp"/>
+    <img class="lobby-logo" src="logos/web/TYPO_LOGO.png" alt="Close Community" fetchpriority="high" width="1040" height="242"/>
+  </picture>
   <div class="lobby-actions">
     <button class="lobby-btn lb-menu" id="lobbyMenu">Menu</button>
     <button class="lobby-btn lb-buy"  id="lobbyBuy">Buy</button>
@@ -988,9 +1031,12 @@
     <!-- LOGO — centered, dominant -->
     <div class="hero-logo-wrap rv">
       <div>
-        <img class="hero-logo"
-             src="logos/LETTERS_LOGO_TRANSPARENT.png"
-             alt="Close Community" />
+        <picture>
+          <source srcset="logos/web/LETTERS_LOGO_TRANSPARENT.webp" type="image/webp"/>
+          <img class="hero-logo"
+               src="logos/web/LETTERS_LOGO_TRANSPARENT.png"
+               alt="Close Community" width="1600" height="1600" loading="lazy"/>
+        </picture>
         <p class="hero-tagline rv d1">u will want to belong.</p>
       </div>
     </div>
@@ -1019,7 +1065,10 @@
 
     <div class="pc rv d1">
       <div class="pc-img">
-        <img src="TRANSPARENT_MOCKUPS/CAPSULA%2001/ANGELDOWNTEE.png" alt="Angel Down Tee" loading="lazy"/>
+        <picture>
+          <source srcset="TRANSPARENT_MOCKUPS/CAPSULA%2001/web/ANGELDOWNTEE.webp" type="image/webp"/>
+          <img src="TRANSPARENT_MOCKUPS/CAPSULA%2001/web/ANGELDOWNTEE.png" alt="Angel Down Tee" loading="lazy" width="1200" height="1200"/>
+        </picture>
       </div>
       <div class="pc-info">
         <div class="pc-row">
@@ -1032,7 +1081,7 @@
           <button class="sz" onclick="selSz(this)">L</button>
           <button class="sz" onclick="selSz(this)">XL</button>
         </div>
-        <button class="add" onclick="addCart(this,'Angel Down Tee',65,'TRANSPARENT_MOCKUPS/CAPSULA%2001/ANGELDOWNTEE.png')">Add to Cart</button>
+        <button class="add" onclick="addCart(this,'Angel Down Tee',65,'TRANSPARENT_MOCKUPS/CAPSULA%2001/web/ANGELDOWNTEE.png')">Add to Cart</button>
       </div>
     </div>
 
@@ -1040,10 +1089,16 @@
       <div class="pc-img flip">
         <div class="flip-inner">
           <div class="flip-front">
-            <img src="TRANSPARENT_MOCKUPS/CAPSULA%2001/FONT_TEE/FRONT_SIDE_FONT_TEE.png" alt="Backside Font Tee — Front" loading="lazy"/>
+            <picture>
+              <source srcset="TRANSPARENT_MOCKUPS/CAPSULA%2001/web/FRONT_SIDE_FONT_TEE.webp" type="image/webp"/>
+              <img src="TRANSPARENT_MOCKUPS/CAPSULA%2001/web/FRONT_SIDE_FONT_TEE.png" alt="Backside Font Tee — Front" loading="lazy" width="1200" height="1200"/>
+            </picture>
           </div>
           <div class="flip-back">
-            <img src="TRANSPARENT_MOCKUPS/CAPSULA%2001/FONT_TEE/BACK_SIDE_FONT_TEE.png" alt="Backside Font Tee — Back" loading="lazy"/>
+            <picture>
+              <source srcset="TRANSPARENT_MOCKUPS/CAPSULA%2001/web/BACK_SIDE_FONT_TEE.webp" type="image/webp"/>
+              <img src="TRANSPARENT_MOCKUPS/CAPSULA%2001/web/BACK_SIDE_FONT_TEE.png" alt="Backside Font Tee — Back" loading="lazy" width="1200" height="1200"/>
+            </picture>
           </div>
         </div>
         <span class="flip-hint">hover to flip</span>
@@ -1059,13 +1114,16 @@
           <button class="sz" onclick="selSz(this)">L</button>
           <button class="sz" onclick="selSz(this)">XL</button>
         </div>
-        <button class="add" onclick="addCart(this,'Backside Font Tee',65,'TRANSPARENT_MOCKUPS/CAPSULA%2001/FONT_TEE/FRONT_SIDE_FONT_TEE.png')">Add to Cart</button>
+        <button class="add" onclick="addCart(this,'Backside Font Tee',65,'TRANSPARENT_MOCKUPS/CAPSULA%2001/web/FRONT_SIDE_FONT_TEE.png')">Add to Cart</button>
       </div>
     </div>
 
     <div class="pc rv d3">
       <div class="pc-img">
-        <img src="TRANSPARENT_MOCKUPS/CAPSULA%2001/STARSTEE.png" alt="Stars Tee" loading="lazy"/>
+        <picture>
+          <source srcset="TRANSPARENT_MOCKUPS/CAPSULA%2001/web/STARSTEE.webp" type="image/webp"/>
+          <img src="TRANSPARENT_MOCKUPS/CAPSULA%2001/web/STARSTEE.png" alt="Stars Tee" loading="lazy" width="1200" height="1200"/>
+        </picture>
       </div>
       <div class="pc-info">
         <div class="pc-row">
@@ -1078,13 +1136,16 @@
           <button class="sz" onclick="selSz(this)">L</button>
           <button class="sz" onclick="selSz(this)">XL</button>
         </div>
-        <button class="add" onclick="addCart(this,'Stars Tee',65,'TRANSPARENT_MOCKUPS/CAPSULA%2001/STARSTEE.png')">Add to Cart</button>
+        <button class="add" onclick="addCart(this,'Stars Tee',65,'TRANSPARENT_MOCKUPS/CAPSULA%2001/web/STARSTEE.png')">Add to Cart</button>
       </div>
     </div>
 
     <div class="pc rv d4">
       <div class="pc-img">
-        <img src="TRANSPARENT_MOCKUPS/CAPSULA%2001/BASICTEEOVRZD.png" alt="Basic Tee Oversized" loading="lazy"/>
+        <picture>
+          <source srcset="TRANSPARENT_MOCKUPS/CAPSULA%2001/web/BASICTEEOVRZD.webp" type="image/webp"/>
+          <img src="TRANSPARENT_MOCKUPS/CAPSULA%2001/web/BASICTEEOVRZD.png" alt="Basic Tee Oversized" loading="lazy" width="1200" height="1200"/>
+        </picture>
       </div>
       <div class="pc-info">
         <div class="pc-row">
@@ -1097,14 +1158,17 @@
           <button class="sz" onclick="selSz(this)">L</button>
           <button class="sz" onclick="selSz(this)">XL</button>
         </div>
-        <button class="add" onclick="addCart(this,'Basic Tee Oversized',55,'TRANSPARENT_MOCKUPS/CAPSULA%2001/BASICTEEOVRZD.png')">Add to Cart</button>
+        <button class="add" onclick="addCart(this,'Basic Tee Oversized',55,'TRANSPARENT_MOCKUPS/CAPSULA%2001/web/BASICTEEOVRZD.png')">Add to Cart</button>
         <div class="pc-tag" style="margin-top:4px">Always Available — Restock</div>
       </div>
     </div>
 
     <div class="pc rv d5">
       <div class="pc-img">
-        <img src="TRANSPARENT_MOCKUPS/CAPSULA%2001/CCSOCKS.png" alt="CC Socks" loading="lazy"/>
+        <picture>
+          <source srcset="TRANSPARENT_MOCKUPS/CAPSULA%2001/web/CCSOCKS.webp" type="image/webp"/>
+          <img src="TRANSPARENT_MOCKUPS/CAPSULA%2001/web/CCSOCKS.png" alt="CC Socks" loading="lazy" width="1200" height="1200"/>
+        </picture>
       </div>
       <div class="pc-info">
         <div class="pc-row">
@@ -1115,13 +1179,16 @@
           <button class="sz" onclick="selSz(this)">S/M</button>
           <button class="sz" onclick="selSz(this)">L/XL</button>
         </div>
-        <button class="add" onclick="addCart(this,'CC Socks',25,'TRANSPARENT_MOCKUPS/CAPSULA%2001/CCSOCKS.png')">Add to Cart</button>
+        <button class="add" onclick="addCart(this,'CC Socks',25,'TRANSPARENT_MOCKUPS/CAPSULA%2001/web/CCSOCKS.png')">Add to Cart</button>
       </div>
     </div>
 
     <div class="pc rv d6">
       <div class="pc-img">
-        <img src="TRANSPARENT_MOCKUPS/CAPSULA%2001/CCWSOCKS.png" alt="CC White Socks" loading="lazy"/>
+        <picture>
+          <source srcset="TRANSPARENT_MOCKUPS/CAPSULA%2001/web/CCWSOCKS.webp" type="image/webp"/>
+          <img src="TRANSPARENT_MOCKUPS/CAPSULA%2001/web/CCWSOCKS.png" alt="CC White Socks" loading="lazy" width="1200" height="1200"/>
+        </picture>
       </div>
       <div class="pc-info">
         <div class="pc-row">
@@ -1132,7 +1199,7 @@
           <button class="sz" onclick="selSz(this)">S/M</button>
           <button class="sz" onclick="selSz(this)">L/XL</button>
         </div>
-        <button class="add" onclick="addCart(this,'CC White Socks',25,'TRANSPARENT_MOCKUPS/CAPSULA%2001/CCWSOCKS.png')">Add to Cart</button>
+        <button class="add" onclick="addCart(this,'CC White Socks',25,'TRANSPARENT_MOCKUPS/CAPSULA%2001/web/CCWSOCKS.png')">Add to Cart</button>
       </div>
     </div>
 
@@ -1199,6 +1266,16 @@
   </div>
   -->
 
+  <div class="sm rv" id="contact">
+    <span class="sm-l">Contact</span>
+    <span class="sm-r">We read everything.</span>
+  </div>
+
+  <div class="contact rv">
+    <a href="mailto:blanc.creativos@gmail.com" class="contact-link">blanc.creativos@gmail.com</a>
+    <a href="https://instagram.com/CLOSE.CCO" target="_blank" rel="noopener" class="contact-link">Instagram — @CLOSE.CCO</a>
+  </div>
+
 </main>
 
 <footer>
@@ -1206,7 +1283,6 @@
     <span class="f-brand">Close Community</span>
     <div class="f-links">
       <a href="https://instagram.com/CLOSE.CCO" target="_blank" rel="noopener" class="f-link">Instagram</a>
-      <a href="#" class="f-link">TikTok</a>
     </div>
   </div>
   <div class="f-r">
@@ -1223,9 +1299,9 @@ const ring = document.getElementById('cRing');
 let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
 (function loop(){
-  rx += (mx-rx)*.1; ry += (my-ry)*.1;
-  dot.style.transform  = `translate(${mx-11}px,${my-11}px)`;
-  ring.style.transform = `translate(${rx-19}px,${ry-19}px)`;
+  rx += (mx-rx)*.4; ry += (my-ry)*.4;
+  dot.style.transform  = `translate3d(${mx-11}px,${my-11}px,0)`;
+  ring.style.transform = `translate3d(${rx-19}px,${ry-19}px,0)`;
   requestAnimationFrame(loop);
 })();
 document.querySelectorAll('button,a').forEach(el=>{

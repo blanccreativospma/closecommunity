@@ -1,5 +1,5 @@
 /* Close Community — Service Worker (offline support) */
-const CACHE = 'cc-v1';
+const CACHE = 'cc-v2';
 const ASSETS = [
   '/',
   '/index.html',
@@ -7,8 +7,27 @@ const ASSETS = [
   '/minesweeper.html',
   '/random.html',
   '/archive.html',
-  '/logos/TYPO_LOGO.png',
-  '/logos/LETTERS_LOGO_TRANSPARENT.png',
+  '/favicon.ico',
+  '/favicon-32.png',
+  '/favicon-192.png',
+  '/logos/web/TYPO_LOGO.webp',
+  '/logos/web/TYPO_LOGO.png',
+  '/logos/web/LETTERS_LOGO_TRANSPARENT.webp',
+  '/logos/web/LETTERS_LOGO_TRANSPARENT.png',
+  '/TRANSPARENT_MOCKUPS/CAPSULA%2001/web/ANGELDOWNTEE.webp',
+  '/TRANSPARENT_MOCKUPS/CAPSULA%2001/web/ANGELDOWNTEE.png',
+  '/TRANSPARENT_MOCKUPS/CAPSULA%2001/web/FRONT_SIDE_FONT_TEE.webp',
+  '/TRANSPARENT_MOCKUPS/CAPSULA%2001/web/FRONT_SIDE_FONT_TEE.png',
+  '/TRANSPARENT_MOCKUPS/CAPSULA%2001/web/BACK_SIDE_FONT_TEE.webp',
+  '/TRANSPARENT_MOCKUPS/CAPSULA%2001/web/BACK_SIDE_FONT_TEE.png',
+  '/TRANSPARENT_MOCKUPS/CAPSULA%2001/web/STARSTEE.webp',
+  '/TRANSPARENT_MOCKUPS/CAPSULA%2001/web/STARSTEE.png',
+  '/TRANSPARENT_MOCKUPS/CAPSULA%2001/web/BASICTEEOVRZD.webp',
+  '/TRANSPARENT_MOCKUPS/CAPSULA%2001/web/BASICTEEOVRZD.png',
+  '/TRANSPARENT_MOCKUPS/CAPSULA%2001/web/CCSOCKS.webp',
+  '/TRANSPARENT_MOCKUPS/CAPSULA%2001/web/CCSOCKS.png',
+  '/TRANSPARENT_MOCKUPS/CAPSULA%2001/web/CCWSOCKS.webp',
+  '/TRANSPARENT_MOCKUPS/CAPSULA%2001/web/CCWSOCKS.png',
 ];
 
 self.addEventListener('install', e => {

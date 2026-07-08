@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://blanccreativospma.github.io/closecommunity/sitemap.xml
