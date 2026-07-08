@@ -1,0 +1,11 @@
+{
+  "name": "close-community-site",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-products.mjs"
+  },
+  "dependencies": {
+    "sharp": "^0.33.0"
+  }
+}

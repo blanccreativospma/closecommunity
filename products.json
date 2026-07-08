@@ -1,0 +1,49 @@
+{
+  "sourceDir": "TRANSPARENT_MOCKUPS/CAPSULA 01",
+  "products": [
+    {
+      "id": "angel-down-tee",
+      "name": "Angel Down Tee",
+      "price": 65,
+      "sizes": ["S", "M", "L", "XL"],
+      "image": "ANGELDOWNTEE.png"
+    },
+    {
+      "id": "font-tee",
+      "name": "Font Tee",
+      "price": 65,
+      "sizes": ["S", "M", "L", "XL"],
+      "image": "FONT_TEE/FRONT_SIDE_FONT_TEE.png",
+      "imageBack": "FONT_TEE/BACK_SIDE_FONT_TEE.png"
+    },
+    {
+      "id": "stars-tee",
+      "name": "Stars Tee",
+      "price": 65,
+      "sizes": ["S", "M", "L", "XL"],
+      "image": "STARSTEE.png"
+    },
+    {
+      "id": "basic-tee-oversized",
+      "name": "Basic Tee Oversized",
+      "price": 55,
+      "sizes": ["S", "M", "L", "XL"],
+      "image": "BASICTEEOVRZD.png",
+      "restock": true
+    },
+    {
+      "id": "cc-socks",
+      "name": "CC Socks",
+      "price": 25,
+      "sizes": ["S/M", "L/XL"],
+      "image": "CCSOCKS.png"
+    },
+    {
+      "id": "cc-white-socks",
+      "name": "CC White Socks",
+      "price": 25,
+      "sizes": ["S/M", "L/XL"],
+      "image": "CCWSOCKS.png"
+    }
+  ]
+}
