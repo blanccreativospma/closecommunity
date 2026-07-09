@@ -375,8 +375,9 @@ async function buildProductPage(p, cardImageUrls) {
       </picture>`)
     .join('\n');
 
+  const hasColorPicker = p.cardImages && p.cardImages.length > 1;
   const specs =
-    specRow('Colors', (p.colors || []).join(', ')) +
+    (hasColorPicker ? '' : specRow('Colors', (p.colors || []).join(', '))) +
     specRow('Materials', p.materials) +
     specRow('Sizes', p.sizes.join(', '));
 
@@ -388,7 +389,16 @@ async function buildProductPage(p, cardImageUrls) {
     ? `\n      <p class="pdp-desc">${p.description}</p>`
     : '';
 
-  const cardUrl = cardImageUrls[0]; // main cutout, used as OG image + cart thumbnail
+  const cardUrl = cardImageUrls[0]; // main cutout, used as OG image + default cart thumbnail
+
+  // Color must be picked explicitly before Add to Cart, same as size — no color
+  // starts pre-selected. cardImageUrls is index-aligned with p.colors (both built
+  // from p.cardImages), so each button's own image becomes the cart thumbnail.
+  const colorButtons = hasColorPicker
+    ? `        <div class="color-select">
+${p.colors.map((c, i) => `          <button type="button" class="color-opt" onclick="selColor(this)" data-color="${c}" data-cart-img="${SITE_PATH}/${cardImageUrls[i]}.png">${c}</button>`).join('\n')}
+        </div>\n`
+    : '';
 
   const bodyMain = `
   <div class="pdp-back-row rv">
@@ -404,7 +414,7 @@ ${galleryHtml}
         <p class="pdp-price">$${p.price}</p>
       </div>
       <div class="pc-info" style="padding-top:0">
-        <div class="szs">
+${colorButtons}        <div class="szs">
 ${sizeButtons(p.sizes)}
         </div>
         <button class="add" onclick="addCart(this,'${p.name}',${p.price},'${SITE_PATH}/${cardUrl}.png')">Add to Cart</button>${restockTag}

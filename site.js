@@ -217,28 +217,30 @@ function renderCart() {
   const total = cart.reduce((s,i)=>s+i.price*i.qty,0);
   document.getElementById('cdTotal').textContent='$'+total.toFixed(2)+' USD';
 }
+function shakeEl(el){ if(el){ el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake'); } }
+
 function addCart(btn,name,price,img){
   const pc = btn.closest('.pc-info');
   const card = btn.closest('.pc');
-  const carousel = card?.querySelector('.pc-img.carousel');
+  const carousel = card?.querySelector('.pc-img.carousel');   // grid card: dot carousel
+  const colorSelect = pc?.querySelector('.color-select');     // product page: color buttons
 
   let color = null;
   if (carousel) {
     const dotOn = carousel.querySelector('.pc-dot.on');
-    if (!dotOn) {
-      const dots = carousel.querySelector('.pc-dots');
-      if (dots) { dots.classList.remove('shake'); void dots.offsetWidth; dots.classList.add('shake'); }
-      toast('Select a color first.');
-      return;
-    }
+    if (!dotOn) { shakeEl(carousel.querySelector('.pc-dots')); toast('Select a color first.'); return; }
     color = dotOn.dataset.color;
     img = dotOn.dataset.cartImg || img; // reflect the chosen colorway in the cart thumbnail
+  } else if (colorSelect) {
+    const optOn = colorSelect.querySelector('.color-opt.on');
+    if (!optOn) { shakeEl(colorSelect); toast('Select a color first.'); return; }
+    color = optOn.dataset.color;
+    img = optOn.dataset.cartImg || img;
   }
 
   const szEl = pc?.querySelector('.sz.on');
   if(!szEl){
-    const szs = pc?.querySelector('.szs');
-    if(szs){ szs.classList.remove('shake'); void szs.offsetWidth; szs.classList.add('shake'); }
+    shakeEl(pc?.querySelector('.szs'));
     toast('Select a size first.');
     return;
   }
@@ -250,6 +252,11 @@ function addCart(btn,name,price,img){
 function rm(i){ cart.splice(i,1); renderCart(); }
 function selSz(btn){
   btn.closest('.szs').querySelectorAll('.sz').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+}
+/* Product page color buttons — required before Add to Cart, same as size */
+function selColor(btn){
+  btn.closest('.color-select').querySelectorAll('.color-opt').forEach(b=>b.classList.remove('on'));
   btn.classList.add('on');
 }
 /* Product card carousel — click a dot to preview a color variant without leaving the grid */

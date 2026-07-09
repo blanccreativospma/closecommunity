@@ -625,14 +625,15 @@
     }
 
     /* Sizes */
-    .szs { display: flex; gap: 4px; flex-wrap: wrap; }
-    .sz {
+    .szs, .color-select { display: flex; gap: 4px; flex-wrap: wrap; }
+    .sz, .color-opt {
       font-family: var(--mono); font-size: 8px; letter-spacing: .06em;
       padding: 4px 9px; border: 1px solid #ddd;
       background: transparent; color: var(--dim); cursor: none;
       transition: border-color .15s, color .15s;
     }
-    .sz:hover, .sz.on { border-color: #555; color: var(--white); }
+    .sz:hover, .sz.on, .color-opt:hover, .color-opt.on { border-color: #555; color: var(--white); }
+    .color-select.shake { animation: szShake .32s ease; }
 
     /* Add */
     .add {
