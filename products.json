@@ -6,44 +6,74 @@
       "name": "Angel Down Tee",
       "price": 65,
       "sizes": ["S", "M", "L", "XL"],
-      "image": "ANGELDOWNTEE.png"
+      "folder": "ANGEL_DOWN_TEE",
+      "image": "CUTOUT.png",
+      "colors": [],
+      "materials": "",
+      "description": "",
+      "gallery": []
     },
     {
       "id": "font-tee",
       "name": "Font Tee",
       "price": 65,
       "sizes": ["S", "M", "L", "XL"],
-      "image": "FONT_TEE/FRONT_SIDE_FONT_TEE.png",
-      "imageBack": "FONT_TEE/BACK_SIDE_FONT_TEE.png"
+      "folder": "FONT_TEE",
+      "image": "FRONT_SIDE_FONT_TEE.png",
+      "imageBack": "BACK_SIDE_FONT_TEE.png",
+      "colors": [],
+      "materials": "",
+      "description": "",
+      "gallery": []
     },
     {
       "id": "stars-tee",
       "name": "Stars Tee",
       "price": 65,
       "sizes": ["S", "M", "L", "XL"],
-      "image": "STARSTEE.png"
+      "folder": "STARS_TEE",
+      "image": "STARSTEE.png",
+      "colors": ["White", "Black"],
+      "materials": "",
+      "description": "",
+      "gallery": ["BLACK_STARSTEE.png", "PHOTOS/STARS_TEE_P_W.png", "PHOTOS/STARRS_TEE_P_B.png"]
     },
     {
       "id": "basic-tee-oversized",
       "name": "Basic Tee Oversized",
       "price": 55,
       "sizes": ["S", "M", "L", "XL"],
-      "image": "BASICTEEOVRZD.png",
-      "restock": true
+      "folder": "BASIC_TEE_OVERSIZED",
+      "image": "CUTOUT.png",
+      "restock": true,
+      "colors": [],
+      "materials": "",
+      "description": "",
+      "gallery": []
     },
     {
       "id": "cc-socks",
       "name": "CC Socks",
       "price": 25,
       "sizes": ["S/M", "L/XL"],
-      "image": "CCSOCKS.png"
+      "folder": "CC_SOCKS",
+      "image": "CUTOUT.png",
+      "colors": [],
+      "materials": "",
+      "description": "",
+      "gallery": []
     },
     {
       "id": "cc-white-socks",
       "name": "CC White Socks",
       "price": 25,
       "sizes": ["S/M", "L/XL"],
-      "image": "CCWSOCKS.png"
+      "folder": "CC_WHITE_SOCKS",
+      "image": "CUTOUT.png",
+      "colors": [],
+      "materials": "",
+      "description": "",
+      "gallery": []
     }
   ]
 }
