@@ -13,8 +13,14 @@
       "materials": "",
       "description": "",
       "gallery": [
+        "BLACK_GOLD_BACK.png",
+        "BLACK_GOLD_SIDE.png",
         "OFFWHITE_ORANGE_MOCKUP.png",
-        "PINK_ORANGE_MOCKUP.png"
+        "OFFWHITE_ORANGE_BACK.png",
+        "OFFWHITE_ORANGE_SIDE.png",
+        "PINK_ORANGE_MOCKUP.png",
+        "PINK_ORANGE_BACK.png",
+        "PINK_ORANGE_SIDE.png"
       ]
     },
     {
