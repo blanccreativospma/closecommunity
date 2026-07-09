@@ -74,6 +74,22 @@
       "materials": "",
       "description": "",
       "gallery": []
+    },
+    {
+      "id": "gatun-cammo-hats",
+      "name": "Gatun Cammo Hats",
+      "price": 35,
+      "sizes": ["One Size"],
+      "folder": "CC_HATS",
+      "image": "BLACK_GOLD_MOCKUP.png",
+      "cardImages": ["BLACK_GOLD_MOCKUP.png", "OFFWHITE_ORANGE_MOCKUP.png", "PINK_ORANGE_MOCKUP.png"],
+      "colors": ["Black/Gold", "Off-White/Orange", "Pink/Orange"],
+      "materials": "",
+      "description": "",
+      "gallery": [
+        "OFFWHITE_ORANGE_MOCKUP.png",
+        "PINK_ORANGE_MOCKUP.png"
+      ]
     }
   ]
 }

@@ -62,7 +62,7 @@ async function optimize(p, relFile) {
     console.log(`  optimized ${p.folder}/${relFile} -> ${p.folder}/web/${base}.{webp,png}`);
   }
   const urlFolder = p.folder.split('/').map(encodeURIComponent).join('/');
-  return `${urlSourceDir}/${urlFolder}/web/${base}`;
+  return `${urlSourceDir}/${urlFolder}/web/${encodeURIComponent(base)}`;
 }
 
 function sizeButtons(sizes) {
@@ -82,6 +82,43 @@ async function buildProductCard(p, index, cardUrls) {
     ? `\n        <div class="pc-tag" style="margin-top:4px">Always Available — Restock</div>`
     : '';
   const detailHref = `product/${p.id}.html`;
+
+  if (p.cardImages && p.cardImages.length > 1) {
+    const urls = [];
+    for (const f of p.cardImages) urls.push(await optimize(p, f));
+    cardUrls.push(...urls);
+    const slides = urls
+      .map((u, i) => `          <div class="pc-slide${i === 0 ? ' on' : ''}">
+            <picture>
+              <source srcset="${u}.webp" type="image/webp"/>
+              <img src="${u}.png" alt="${p.name}" loading="lazy" width="1200" height="1200"/>
+            </picture>
+          </div>`)
+      .join('\n');
+    const dots = urls
+      .map((_, i) => `          <button type="button" class="pc-dot${i === 0 ? ' on' : ''}" onclick="pcDot(event,this,${i})" aria-label="View color ${i + 1}"></button>`)
+      .join('\n');
+    return `    <div class="pc rv d${delay}">
+      <div class="pc-img carousel">
+        <a href="${detailHref}" class="pc-carousel-track">
+${slides}
+        </a>
+        <div class="pc-dots">
+${dots}
+        </div>
+      </div>
+      <div class="pc-info">
+        <a href="${detailHref}" class="pc-row" style="text-decoration:none;color:inherit">
+          <span class="pc-name">${p.name}</span>
+          <span class="pc-price">$${p.price}</span>
+        </a>
+        <div class="szs">
+${sizeButtons(p.sizes)}
+        </div>
+        <button class="add" onclick="addCart(this,'${p.name}',${p.price},'${SITE_PATH}/${urls[0]}.png')">Add to Cart</button>${restockTag}
+      </div>
+    </div>`;
+  }
 
   if (p.imageBack) {
     const frontUrl = await optimize(p, p.image);
@@ -437,7 +474,15 @@ function updateServiceWorker(allAssetUrls, productIds) {
   const imageAssets = allAssetUrls.flatMap(u => [`${u}.webp`, `${u}.png`]);
   const allAssets = [...BASE_ASSETS, ...productPageAssets, ...imageAssets];
 
-  const hash = crypto.createHash('sha1').update(allAssets.join('|')).digest('hex').slice(0, 8);
+  // Hash both the asset list AND the mutable shared files' contents — editing styles.css
+  // or site.js without adding/removing any file wouldn't otherwise change the asset list,
+  // so returning visitors would keep the stale cached copy forever.
+  const mutableContents = ['styles.css', 'site.js', 'index.html']
+    .map(f => fs.readFileSync(path.join(ROOT, f), 'utf8'))
+    .join(' ');
+  const hash = crypto.createHash('sha1')
+    .update(allAssets.join('|') + ' ' + mutableContents)
+    .digest('hex').slice(0, 8);
   const cacheName = `cc-${hash}`;
 
   const assetsList = allAssets.map(a => `  '${a}',`).join('\n');

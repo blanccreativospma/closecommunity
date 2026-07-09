@@ -236,6 +236,13 @@ function selSz(btn){
   btn.closest('.szs').querySelectorAll('.sz').forEach(b=>b.classList.remove('on'));
   btn.classList.add('on');
 }
+/* Product card carousel — click a dot to preview a color variant without leaving the grid */
+function pcDot(e, dotEl, idx){
+  e.preventDefault(); e.stopPropagation();
+  const wrap = dotEl.closest('.pc-img.carousel');
+  wrap.querySelectorAll('.pc-slide').forEach((s,i)=> s.classList.toggle('on', i===idx));
+  wrap.querySelectorAll('.pc-dot').forEach((d,i)=> d.classList.toggle('on', i===idx));
+}
 function openCart(){
   document.getElementById('cd').classList.add('open');
   document.getElementById('cv').classList.add('open');

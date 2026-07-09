@@ -525,7 +525,7 @@
     .pc-img {
       position: relative; overflow: hidden; display: block;
       aspect-ratio: 3/4;
-      background: #f2f2f0;
+      background: var(--black);
     }
     .pc-img img {
       width: 100%; height: 100%;
@@ -552,6 +552,36 @@
     .pc:not(.gone):hover .pc-img.flip .flip-back img  { opacity: 1; }
     /* Override default scale on flip cards */
     .pc:not(.gone):hover .pc-img.flip img { transform: none; }
+
+    /* ── CAROUSEL (click dots to preview color variants) ── */
+    .pc-img.carousel { display: block; }
+    .pc-carousel-track { position: absolute; inset: 0; display: block; }
+    .pc-slide {
+      position: absolute; inset: 0;
+      opacity: 0; transition: opacity .45s ease;
+    }
+    .pc-slide.on { opacity: 1; z-index: 1; }
+    .pc-slide img {
+      width: 100%; height: 100%;
+      object-fit: contain; display: block;
+      transition: transform .7s cubic-bezier(.25,.46,.45,.94);
+    }
+    .pc:not(.gone):hover .pc-slide.on img { transform: scale(1.055); }
+
+    .pc-dots {
+      position: absolute; left: 0; right: 0; bottom: 6px; z-index: 3;
+      display: flex; justify-content: center; gap: 2px;
+    }
+    .pc-dot {
+      width: 18px; height: 18px; padding: 0; border: none; background: transparent;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+    }
+    .pc-dot::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      border: 1px solid var(--dim); background: transparent;
+      transition: background .2s, border-color .2s, transform .2s;
+    }
+    .pc-dot.on::before { background: var(--white); border-color: var(--white); transform: scale(1.3); }
 
     /* Flip hint badge */
     .flip-hint {
@@ -826,7 +856,7 @@
       align-items: start;
     }
     .pdp-gallery { display: flex; flex-direction: column; gap: 12px; }
-    .pdp-gallery img { width: 100%; display: block; background: #f2f2f0; }
+    .pdp-gallery img { width: 100%; display: block; background: var(--black); }
 
     .pdp-info { position: sticky; top: 110px; display: flex; flex-direction: column; gap: 20px; }
     .pdp-name { font-size: 26px; font-weight: 600; letter-spacing: .01em; }
