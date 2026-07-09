@@ -488,14 +488,19 @@ function updateServiceWorker(allAssetUrls, productIds) {
   const imageAssets = allAssetUrls.flatMap(u => [`${u}.webp`, `${u}.png`]);
   const allAssets = [...BASE_ASSETS, ...productPageAssets, ...imageAssets];
 
-  // Hash both the asset list AND the mutable shared files' contents — editing styles.css
-  // or site.js without adding/removing any file wouldn't otherwise change the asset list,
-  // so returning visitors would keep the stale cached copy forever.
-  const mutableContents = ['styles.css', 'site.js', 'index.html']
-    .map(f => fs.readFileSync(path.join(ROOT, f), 'utf8'))
-    .join(' ');
-  const hash = crypto.createHash('sha1')
-    .update(allAssets.join('|') + ' ' + mutableContents)
+  // Hash the actual bytes of every asset file, not just the list of paths — editing
+  // styles.css, or replacing a photo in place (same filename, new bytes), wouldn't
+  // otherwise change the asset *list*, so returning visitors would keep whatever was
+  // cached under the old name forever. Content hashing (vs. mtime) also keeps the name
+  // stable across a no-op rebuild — index.html/product pages get rewritten every run
+  // regardless of whether their content actually changed.
+  const digest = crypto.createHash('sha1');
+  for (const a of allAssets) {
+    if (a === './') continue;
+    const abs = path.join(ROOT, a);
+    if (fs.existsSync(abs)) digest.update(fs.readFileSync(abs));
+  }
+  const hash = digest
     .digest('hex').slice(0, 8);
   const cacheName = `cc-${hash}`;
 
