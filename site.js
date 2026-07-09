@@ -208,7 +208,7 @@ function renderCart() {
       <div class="cd-info">
         <div>
           <div class="cd-name">${item.name}</div>
-          <div class="cd-sub">Size: ${item.size||'OS'} · Qty: ${item.qty}</div>
+          <div class="cd-sub">${item.color ? item.color+' · ' : ''}Size: ${item.size||'OS'} · Qty: ${item.qty}</div>
         </div>
         <div class="cd-price">$${(item.price*item.qty).toFixed(2)}</div>
       </div>
@@ -218,7 +218,23 @@ function renderCart() {
   document.getElementById('cdTotal').textContent='$'+total.toFixed(2)+' USD';
 }
 function addCart(btn,name,price,img){
-  const pc  = btn.closest('.pc-info');
+  const pc = btn.closest('.pc-info');
+  const card = btn.closest('.pc');
+  const carousel = card?.querySelector('.pc-img.carousel');
+
+  let color = null;
+  if (carousel) {
+    const dotOn = carousel.querySelector('.pc-dot.on');
+    if (!dotOn) {
+      const dots = carousel.querySelector('.pc-dots');
+      if (dots) { dots.classList.remove('shake'); void dots.offsetWidth; dots.classList.add('shake'); }
+      toast('Select a color first.');
+      return;
+    }
+    color = dotOn.dataset.color;
+    img = dotOn.dataset.cartImg || img; // reflect the chosen colorway in the cart thumbnail
+  }
+
   const szEl = pc?.querySelector('.sz.on');
   if(!szEl){
     const szs = pc?.querySelector('.szs');
@@ -227,8 +243,8 @@ function addCart(btn,name,price,img){
     return;
   }
   const sz = szEl.textContent;
-  const ex = cart.find(i=>i.name===name&&i.size===sz);
-  if(ex) ex.qty++; else cart.push({name,price,img,size:sz,qty:1});
+  const ex = cart.find(i=>i.name===name&&i.size===sz&&(i.color||null)===color);
+  if(ex) ex.qty++; else cart.push({name,price,img,size:sz,color,qty:1});
   renderCart(); openCart(); toast('Added.');
 }
 function rm(i){ cart.splice(i,1); renderCart(); }

@@ -49,6 +49,7 @@
       "sizes": ["S", "M", "L", "XL"],
       "folder": "STARS_TEE",
       "image": "STARSTEE.png",
+      "cardImages": ["STARSTEE.png", "BLACK_STARSTEE.png"],
       "colors": ["White", "Black"],
       "materials": "",
       "description": "",
@@ -73,23 +74,12 @@
       "price": 25,
       "sizes": ["S/M", "L/XL"],
       "folder": "CC_SOCKS",
-      "image": "CUTOUT.png",
-      "colors": [],
+      "image": "BLACK.png",
+      "cardImages": ["BLACK.png", "WHITE.png"],
+      "colors": ["Black", "White"],
       "materials": "",
       "description": "",
-      "gallery": []
-    },
-    {
-      "id": "cc-white-socks",
-      "name": "CC White Socks",
-      "price": 25,
-      "sizes": ["S/M", "L/XL"],
-      "folder": "CC_WHITE_SOCKS",
-      "image": "CUTOUT.png",
-      "colors": [],
-      "materials": "",
-      "description": "",
-      "gallery": []
+      "gallery": ["WHITE.png"]
     }
   ]
 }

@@ -300,6 +300,7 @@
       80%      { transform: translateX(3px); }
     }
     .szs.shake { animation: szShake .32s ease; }
+    .pc-dots.shake { animation: szShake .32s ease; }
 
     /* ═══════════════════════════════════════
        TICKER

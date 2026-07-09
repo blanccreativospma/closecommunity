@@ -95,8 +95,12 @@ async function buildProductCard(p, index, cardUrls) {
             </picture>
           </div>`)
       .join('\n');
+    // Dots start unselected (even though slide 0 previews by default) — a color
+    // isn't "chosen" until the shopper clicks one, same as sizes. addCart() enforces this,
+    // and swaps the cart thumbnail to whichever color's image the dot carries.
+    const colorLabels = p.colors && p.colors.length === urls.length ? p.colors : urls.map((_, i) => `Color ${i + 1}`);
     const dots = urls
-      .map((_, i) => `          <button type="button" class="pc-dot${i === 0 ? ' on' : ''}" onclick="pcDot(event,this,${i})" aria-label="View color ${i + 1}"></button>`)
+      .map((u, i) => `          <button type="button" class="pc-dot" onclick="pcDot(event,this,${i})" data-color="${colorLabels[i]}" data-cart-img="${SITE_PATH}/${u}.png" aria-label="View color: ${colorLabels[i]}"></button>`)
       .join('\n');
     return `    <div class="pc rv d${delay}">
       <div class="pc-img carousel">
@@ -549,7 +553,19 @@ async function main() {
   }
 
   updateServiceWorker(allAssetUrls, products.map(p => p.id));
+  removeStaleProductPages(products.map(p => p.id));
   console.log('Done. Review the diff, then commit + push when ready.');
+}
+
+/** Deletes product/*.html pages left over from products removed from products.json. */
+function removeStaleProductPages(currentIds) {
+  const currentFiles = new Set(currentIds.map(id => `${id}.html`));
+  for (const file of fs.readdirSync(PRODUCT_DIR)) {
+    if (file.endsWith('.html') && !currentFiles.has(file)) {
+      fs.unlinkSync(path.join(PRODUCT_DIR, file));
+      console.log(`  removed stale product/${file} (no longer in products.json)`);
+    }
+  }
 }
 
 main().catch(err => { console.error(err); process.exit(1); });
